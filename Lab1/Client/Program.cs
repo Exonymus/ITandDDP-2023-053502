@@ -54,14 +54,41 @@ class Program
         Console.Write("Введите порт для отправки сообщений: ");
         if (!int.TryParse(Console.ReadLine(), out var remotePort)) return;
         Console.Clear();
+
+        // TCP подключение
+        await ConnectToChat();
         
+        // UDP чат
         Task.Run(ReceiveMessageAsync);
         await SendMessageAsync();
         
         // Отправка сообщений
+        async Task ConnectToChat()
+        {
+            Console.WriteLine("Ожидание подключения...");
+
+            var tcpClient = new TcpClient();
+            TcpListener listener = new TcpListener(localAddress, localPort);
+            listener.Start();
+            
+            while (true)
+            {
+                try
+                {
+                    await tcpClient.ConnectAsync(localAddress, remotePort);
+                    Console.Clear();
+                    break;
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+
+        }
         async Task SendMessageAsync()
         {
-            using UdpClient sender = new UdpClient();
+            using var sender = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             
             while (true)
             {
@@ -78,19 +105,22 @@ class Program
                 message = $"{username}: {message}";
                 chat.NewMessage(message);
                 byte[] data = Encoding.UTF8.GetBytes(message);
-                await sender.SendAsync(data, new IPEndPoint(localAddress, remotePort));
+                await sender.SendToAsync(data, SocketFlags.None, new IPEndPoint(localAddress, remotePort));
             }
         }
         
         // Прием сообщений
         async Task ReceiveMessageAsync()
         {
-            using UdpClient receiver = new UdpClient(localPort);
+            var data = new byte[65535];
+            using var receiver = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            receiver.Bind(new IPEndPoint(localAddress, localPort));
+
             while (true)
             {
                 // получаем данные
-                var result = await receiver.ReceiveAsync();
-                var message = Encoding.UTF8.GetString(result.Buffer);
+                var result = await receiver.ReceiveFromAsync(data, SocketFlags.None, new IPEndPoint(localAddress, remotePort));
+                var message = Encoding.UTF8.GetString(data, 0, result.ReceivedBytes);
                 chat.NewMessage(message);
                 
                 Console.Write("Введите сообщение:\t");
