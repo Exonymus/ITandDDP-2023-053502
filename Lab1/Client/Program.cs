@@ -6,13 +6,26 @@ namespace Client;
 
 internal class Message
 {
-    public Message(string? text)
+    public Message(string text)
     {
-        Text = text;
+        if (text.Contains('|'))
+        {
+            Timestamp = new DateTime(Convert.ToInt64(text.Split('|')[0]));
+            Text = text.Split('|')[1];
+        }
+        else
+        {
+            Text = text;
+        }
     }
 
-    public string? Text { get; }
+    public string? Text { get; set; }
     public DateTime Timestamp { get; } = DateTime.Now;
+
+    public override string ToString()
+    {
+        return $"{Timestamp.Ticks}|{Text}";
+    }
 }
 
 internal class Chat
@@ -30,9 +43,14 @@ internal class Chat
         }
     }
 
-    public void NewMessage(string text)
+    public void NewMessage(Message message)
     {
-        History.Add(new Message(text));
+        if (message.Text!.Equals("/exit"))
+        {
+            message.Text = "Interlocutor has disconnected. Chat was closed.";
+        }
+        
+        History.Add(message);
         Fetch();
     }
 }
@@ -42,40 +60,53 @@ class Program
     private static async Task Main()
     {
         var chat = new Chat();
+        var isUp = true;
         var localAddress = IPAddress.Parse("127.0.0.1");
-        
+
         Console.Write("Введите имя пользователя: ");
         var username = Console.ReadLine();
         if (string.IsNullOrWhiteSpace(username)) return;
-        
+
         Console.Write("Введите порт для приема сообщений: ");
         if (!int.TryParse(Console.ReadLine(), out var localPort)) return;
-        
+
         Console.Write("Введите порт для отправки сообщений: ");
         if (!int.TryParse(Console.ReadLine(), out var remotePort)) return;
         Console.Clear();
 
         // TCP подключение
+        var serverEp = new IPEndPoint(localAddress, localPort);
+        using Socket listener = new(
+            AddressFamily.InterNetwork,
+            SocketType.Stream,
+            ProtocolType.Tcp);
+
+        listener.Bind(serverEp);
+        listener.Listen(100);
         await ConnectToChat();
-        
+
         // UDP чат
         Task.Run(ReceiveMessageAsync);
         await SendMessageAsync();
-        
+
         // Отправка сообщений
         async Task ConnectToChat()
         {
             Console.WriteLine("Ожидание подключения...");
 
-            var tcpClient = new TcpClient();
-            TcpListener listener = new TcpListener(localAddress, localPort);
-            listener.Start();
-            
             while (true)
             {
+                var clientEp = new IPEndPoint(localAddress, remotePort);
+
                 try
                 {
-                    await tcpClient.ConnectAsync(localAddress, remotePort);
+                    using Socket client = new(
+                        AddressFamily.InterNetwork,
+                        SocketType.Stream,
+                        ProtocolType.Tcp);
+
+                    await client.ConnectAsync(clientEp);
+
                     Console.Clear();
                     break;
                 }
@@ -84,13 +115,13 @@ class Program
                     // ignored
                 }
             }
-
         }
+
         async Task SendMessageAsync()
         {
             using var sender = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            
-            while (true)
+
+            while (isUp)
             {
                 Console.Write("Введите сообщение:\t");
                 var message = Console.ReadLine();
@@ -100,15 +131,27 @@ class Program
                     chat.Fetch();
                     continue;
                 }
-                if (message.Equals("/exit")) break;
-                
+
+                if (message.Equals("/exit"))
+                {
+                    chat.NewMessage(new Message(message));
+                    var exitData = Encoding.UTF8.GetBytes(message);
+                    await sender.SendToAsync(exitData, SocketFlags.None, new IPEndPoint(localAddress, remotePort));
+                    
+                    sender.Close();
+                    break;
+                }
+
                 message = $"{username}: {message}";
-                chat.NewMessage(message);
-                byte[] data = Encoding.UTF8.GetBytes(message);
+                
+                var mes = new Message(message);
+                chat.NewMessage(mes);
+                
+                byte[] data = Encoding.UTF8.GetBytes(mes.ToString());
                 await sender.SendToAsync(data, SocketFlags.None, new IPEndPoint(localAddress, remotePort));
             }
         }
-        
+
         // Прием сообщений
         async Task ReceiveMessageAsync()
         {
@@ -119,10 +162,21 @@ class Program
             while (true)
             {
                 // получаем данные
-                var result = await receiver.ReceiveFromAsync(data, SocketFlags.None, new IPEndPoint(localAddress, remotePort));
+                var result =
+                    await receiver.ReceiveFromAsync(data, SocketFlags.None, new IPEndPoint(localAddress, remotePort));
                 var message = Encoding.UTF8.GetString(data, 0, result.ReceivedBytes);
-                chat.NewMessage(message);
                 
+                var mes = new Message(message);
+                chat.NewMessage(mes);
+                
+                if (message.Equals("/exit"))
+                {
+                    isUp = false;
+                    
+                    receiver.Close();
+                    break;
+                }
+
                 Console.Write("Введите сообщение:\t");
             }
         }
