@@ -62,6 +62,7 @@ class Program
         var chat = new Chat();
         var isUp = true;
         var localAddress = IPAddress.Parse("127.0.0.1");
+        string message = "";
 
         Console.Write("Введите имя пользователя: ");
         var username = Console.ReadLine();
@@ -123,8 +124,30 @@ class Program
 
             while (isUp)
             {
+                message = "";
                 Console.Write("Введите сообщение:\t");
-                var message = Console.ReadLine();
+                
+                ConsoleKeyInfo cki;
+                cki = Console.ReadKey();
+                while (cki.Key != ConsoleKey.Enter)
+                {
+                    if (cki.Key == ConsoleKey.Backspace)
+                    {
+                        if (!message.Equals(""))
+                        {
+                            message = message[..^1];
+                        }
+                        
+                        chat.Fetch();
+                        Console.Write($"Введите сообщение:\t{message}");
+                        
+                        cki = Console.ReadKey();
+                        continue;
+                    }
+                    message += cki.KeyChar;
+                    cki = Console.ReadKey();
+                }
+                Console.CursorTop += 1;
 
                 if (string.IsNullOrWhiteSpace(message))
                 {
@@ -148,6 +171,7 @@ class Program
                 chat.NewMessage(mes);
                 
                 byte[] data = Encoding.UTF8.GetBytes(mes.ToString());
+                //Thread.Sleep(new Random().NextInt64() % 2 == 0 ? 0 : 2000);
                 await sender.SendToAsync(data, SocketFlags.None, new IPEndPoint(localAddress, remotePort));
             }
         }
@@ -164,12 +188,12 @@ class Program
                 // получаем данные
                 var result =
                     await receiver.ReceiveFromAsync(data, SocketFlags.None, new IPEndPoint(localAddress, remotePort));
-                var message = Encoding.UTF8.GetString(data, 0, result.ReceivedBytes);
+                var newMessage = Encoding.UTF8.GetString(data, 0, result.ReceivedBytes);
                 
-                var mes = new Message(message);
+                var mes = new Message(newMessage);
                 chat.NewMessage(mes);
                 
-                if (message.Equals("/exit"))
+                if (newMessage.Equals("/exit"))
                 {
                     isUp = false;
                     
@@ -177,7 +201,7 @@ class Program
                     break;
                 }
 
-                Console.Write("Введите сообщение:\t");
+                Console.Write($"Введите сообщение:\t{message}");
             }
         }
     }
