@@ -1,0 +1,15 @@
+/Users/exonymus/ITandDDP/ITandDDP-2023-053502/Lab1/Client/bin/Debug/net6.0/Client
+/Users/exonymus/ITandDDP/ITandDDP-2023-053502/Lab1/Client/bin/Debug/net6.0/Client.deps.json
+/Users/exonymus/ITandDDP/ITandDDP-2023-053502/Lab1/Client/bin/Debug/net6.0/Client.runtimeconfig.json
+/Users/exonymus/ITandDDP/ITandDDP-2023-053502/Lab1/Client/bin/Debug/net6.0/Client.dll
+/Users/exonymus/ITandDDP/ITandDDP-2023-053502/Lab1/Client/bin/Debug/net6.0/Client.pdb
+/Users/exonymus/ITandDDP/ITandDDP-2023-053502/Lab1/Client/obj/Debug/net6.0/Client.csproj.AssemblyReference.cache
+/Users/exonymus/ITandDDP/ITandDDP-2023-053502/Lab1/Client/obj/Debug/net6.0/Client.GeneratedMSBuildEditorConfig.editorconfig
+/Users/exonymus/ITandDDP/ITandDDP-2023-053502/Lab1/Client/obj/Debug/net6.0/Client.AssemblyInfoInputs.cache
+/Users/exonymus/ITandDDP/ITandDDP-2023-053502/Lab1/Client/obj/Debug/net6.0/Client.AssemblyInfo.cs
+/Users/exonymus/ITandDDP/ITandDDP-2023-053502/Lab1/Client/obj/Debug/net6.0/Client.csproj.CoreCompileInputs.cache
+/Users/exonymus/ITandDDP/ITandDDP-2023-053502/Lab1/Client/obj/Debug/net6.0/Client.dll
+/Users/exonymus/ITandDDP/ITandDDP-2023-053502/Lab1/Client/obj/Debug/net6.0/refint/Client.dll
+/Users/exonymus/ITandDDP/ITandDDP-2023-053502/Lab1/Client/obj/Debug/net6.0/Client.pdb
+/Users/exonymus/ITandDDP/ITandDDP-2023-053502/Lab1/Client/obj/Debug/net6.0/Client.genruntimeconfig.cache
+/Users/exonymus/ITandDDP/ITandDDP-2023-053502/Lab1/Client/obj/Debug/net6.0/ref/Client.dll
