@@ -1,0 +1,545 @@
+.brandname {
+    position: relative;
+    letter-spacing: 0.1px;
+    line-height: 2rem;
+}
+
+.navbar-brand,
+.navbar-brand-wrapper {
+    width: 11.69rem;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.navbar-brand {
+    height: 3.63rem;
+    overflow: hidden;
+    align-items: flex-start;
+}
+
+.navbar-brand-wrapper {
+    align-items: center;
+}
+
+.nav-link {
+    position: relative;
+    text-decoration: none;
+    letter-spacing: 0.2px;
+    line-height: 1.5rem;
+    font-weight: 600;
+}
+/*.nav-button {*/
+/*    position: relative;*/
+/*    text-decoration: none;*/
+/*    letter-spacing: 0.2px;*/
+/*    line-height: 1.5rem;*/
+/*    font-weight: 600;*/
+/*    background: none;*/
+/*    border: none;*/
+/*    padding: 0;*/
+/*    font-family: var(--paragraph);*/
+/*    font-size: var(--link-size);*/
+/*    color: var(--color-dimgray);*/
+/*    cursor: pointer;*/
+/*}*/
+.nav-link:visited {
+    text-decoration: none;
+    color: var(--color-dimgray);
+}
+.nav-link:link {
+    text-decoration: none;
+    color: var(--color-dimgray);
+}
+
+.nav-link:hover, .nav-button:hover {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+.nav-link:focus, .nav-button:focus {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+.li-current {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--primary-color);
+}
+
+.li,
+.li-current,
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+.li {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.navbar-nav {
+    align-self: stretch;
+    overflow: hidden;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 1.31rem;
+}
+
+.navbar-nav-wrapper {
+    flex-grow: 1;
+    width: 18.06rem;
+    flex-shrink: 0;
+}
+
+.navbar-nav-wrapper,
+.search-form-group,
+.search-form-group-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-form-group {
+    border: 1px solid #dadada;
+    font-family: var(--paragraph);
+    font-size: var(--link-size);
+    background-color: #f5f5f5;
+    align-self: stretch;
+    border-radius: var(--br-8xs);
+    overflow: hidden;
+}
+
+.search-form-group-wrapper {
+    width: 19.81rem;
+    flex-shrink: 0;
+}
+.search-form-group-button {
+    height: 1.5rem;
+    width: 1.5rem;
+    border: 1px solid #dadada;
+    background-color: #f5f5f5;
+    border-radius: var(--br-8xs);
+    background-image: url("public/ic-search.svg");
+    background-position: center;
+    background-size: contain;
+    margin-left: 0.25rem;
+    cursor: pointer;
+}
+.search-form-group-button:active {
+    box-shadow:0.02rem 0.02rem 0.02rem var(--color-dimgray);
+}
+.search-paragraph {
+    margin-right: 0.25rem;
+    color: var(--text-color);
+}
+
+.collapse-navbar-collapse {
+    align-self: stretch;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    padding: 0.25rem 0;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.collapse-navbar-collapse-wrapper {
+    width: 50.94rem;
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: var(--link-size);
+    color: var(--color-dimgray);
+}
+
+.navbar,
+.navbar-wrapper {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+}
+
+.navbar {
+    overflow: hidden;
+    flex-direction: row;
+    padding: 1rem 8.5rem;
+    justify-content: space-between;
+}
+
+.navbar-wrapper {
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    color: var(--text-color);
+}
+
+.playlistname {
+    align-self: stretch;
+    position: relative;
+    letter-spacing: 0.2px;
+    line-height: 1.63rem;
+}
+
+.paragraph,
+.song-info {
+    font-size: var(--paragraph-size);
+    font-weight: 500;
+    font-family: var(--paragraph);
+}
+
+.paragraph {
+    position: relative;
+    letter-spacing: 0.2px;
+    line-height: 1.63rem;
+    color: var(--text-color);
+    text-align: left;
+}
+
+.song-info,
+.song-selected-info-child {
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.song-info {
+    cursor: pointer;
+    border: 1px solid var(--color-whitesmoke-100);
+    padding: var(--padding-lg) var(--padding-3xl);
+    background-color: transparent;
+    align-self: stretch;
+    height: 4.31rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.song-selected-info-child {
+    position: relative;
+    border-right: 3px solid var(--primary-color);
+    width: 0.19rem;
+    height: 5.21rem;
+}
+
+.song-selected-paragraph {
+    position: relative;
+    padding-left: 1.56rem;
+    font-size: var(--paragraph-size);
+    letter-spacing: 0.2px;
+    line-height: 1.63rem;
+    font-weight: 500;
+    font-family: var(--paragraph);
+    color: var(--primary-color);
+    text-align: left;
+}
+
+.song-selected-info {
+    border: 1px solid var(--color-whitesmoke-100);
+    padding: var(--padding-lg) 0 1.56rem;
+    background-color: transparent;
+    align-self: stretch;
+    flex-shrink: 0;
+    height: 5.21rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.playlist,
+.playlistname-parent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.playlist {
+    align-self: stretch;
+    background-color: var(--light-background-color);
+    overflow: auto;
+    justify-content: flex-start;
+    max-height: 20rem;
+}
+
+.playlistname-parent {
+    flex: 1;
+    justify-content: center;
+    gap: 2.5rem;
+}
+
+.icn-arrow-left-icn-sm {
+    position: relative;
+    width: 0.94rem;
+    height: 1.56rem;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.btn-song_order,
+.btn-song_order-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.btn-song_order {
+    cursor: pointer;
+    border: 1px solid var(--color-black);
+    padding: var(--padding-2xl) var(--padding-7xl);
+    background-color: transparent;
+    border-radius: var(--br-8xs);
+    overflow: hidden;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.btn-song_order-wrapper {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.authorname,
+.song-image-icon {
+    align-self: stretch;
+    position: relative;
+}
+
+.authorname {
+    letter-spacing: 0.2px;
+    line-height: 1.5rem;
+    font-weight: 600;
+}
+
+.song-image-icon {
+    max-height: 20rem;
+    user-select: none;
+    overflow: hidden;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+.authorname-parent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.75rem;
+    font-size: var(--font-size-xl);
+}
+
+.btn-next,
+.musicplayer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.btn-next {
+    border-radius: var(--br-8xs);
+    border: 1px solid var(--color-black);
+    box-sizing: border-box;
+    height: 4.33rem;
+    flex-shrink: 0;
+    overflow: hidden;
+    padding: var(--padding-2xl) var(--padding-7xl);
+    justify-content: flex-start;
+}
+
+.musicplayer {
+    align-self: stretch;
+    border-radius: var(--br-3xs);
+    background-color: #d9d9d9;
+    border: 3px solid var(--color-black);
+    padding: var(--padding-10xl) 2.94rem var(--padding-10xl) 2.81rem;
+    justify-content: center;
+    gap: 1.88rem;
+    font-size: 1.56rem;
+}
+
+.jukebox-logo {
+    user-select: none;
+    display: flex;
+    flex-direction: row;
+    padding: var(--padding-3xs);
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btn-play {
+    top: 0;
+    right: 27.29%;
+    bottom: 2.53%;
+    left: 27.09%;
+    position: absolute;
+    height: 97.47%;
+    width: 45.62%;
+    border-radius: 73.6px;
+    background-color: #d9d9d9;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.btn-add,
+.btn-like,
+.btn-randomize,
+.btn-repeat {
+    position: absolute;
+    height: 48.42%;
+    width: 22.66%;
+    border-radius: var(--br-3xs);
+    background-color: #d9d9d9;
+}
+
+.btn-add,
+.btn-like,
+.btn-randomize,
+.btn-repeat {
+    top: 0;
+    right: 77.34%;
+    bottom: 51.58%;
+    left: 0;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.btn-add {
+    top: 51.58%;
+    bottom: 0;
+}
+
+.btn-repeat {
+    top: 51.58%;
+    right: 0;
+    bottom: 0;
+    left: 77.34%;
+}
+.btn-randomize {
+    top: 0;
+    right: 0;
+    bottom: 51.58%;
+    left: 77.34%;
+}
+
+.controls,
+.profilepicture-icon {
+    position: relative;
+    width: 12.69rem;
+    height: 5.94rem;
+    flex-shrink: 0;
+}
+
+.profilepicture-icon {
+    border-radius: var(--br-3xs);
+    width: 6.5rem;
+    height: 6.5rem;
+    object-fit: cover;
+}
+
+.controls-profile-parent,
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile {
+    width: 16.56rem;
+    flex-direction: row;
+    padding: var(--padding-3xs);
+    box-sizing: border-box;
+}
+
+.controls-profile-parent {
+    height: 18rem;
+    flex-direction: column;
+}
+
+.jukebox-logo-icon {
+    position: relative;
+    width: 20rem;
+    height: 20rem;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.jukebox-logo-parent {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    font-size: var(--font-size-xl);
+}
+
+.frame-parent {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3.71rem;
+}
+
+.unauthorised-home-page {
+    position: relative;
+    background-color: var(--light-background-color);
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: var(--padding-11xs) 0.31rem;
+    box-sizing: border-box;
+    align-items: flex-end;
+    justify-content: flex-end;
+    text-align: center;
+    font-size: 2.25rem;
+    color: var(--color-black);
+    font-family: var(--paragraph);
+}
+@media screen and (max-width: 1325px) {
+    .collapse-navbar-collapse,
+    .navbar,
+    .navbar-nav{
+        flex-direction: column;
+        gap: 0.94rem;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar {
+        gap: 0.06rem;
+    }
+}
+
+@media screen and (max-width: 925px) {
+    .jukebox-logo-parent,
+    .musicplayer {
+        flex-direction: column;
+        gap: var(--gap-3xs);
+        align-items: center;
+        justify-content: center;
+    }
+
+    .authorname-parent,
+    .btn-song_order-wrapper,
+    .playlistname-parent {
+        flex: unset;
+        align-self: stretch;
+    }
+}
