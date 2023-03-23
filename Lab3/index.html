@@ -7,87 +7,91 @@
     <link rel="stylesheet" href="./index.css"/>
     <link
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
-    />
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"/>
     <link rel="icon" type="image/x-icon" href="/public/titile-icon.webp">
     <title>JukeBox</title>
 </head>
 <body>
-<div class="unauthorised-home-page">
-    <div class="frame-parent">
-        <div class="navbar-wrapper">
-            <div class="navbar">
-                <div class="navbar-brand-wrapper">
-                    <div class="navbar-brand"><b class="brandname">JukeBox</b></div>
-                </div>
-                <div class="collapse-navbar-collapse-wrapper">
-                    <div class="collapse-navbar-collapse">
-                        <div class="navbar-nav-wrapper">
-                            <div class="navbar-nav">
-                                <div class="li" id="page-home">
-                                    <a href="index.html" class="nav-link">Home</a>
-                                </div>
-                                <div class="li" id="page-popular">
-                                    <a href="#" class="nav-link">Popular</a>
-                                </div>
-                                <div class="li" id="page-recent">
-                                    <a href="#" class="nav-link">Recent</a>
-                                </div>
-                                <div class="li" id="page-playlists">
-                                    <a href="#" class="nav-link">Playlists</a>
-                                </div>
-                                <div class="li" id="page-creator">
-                                    <a href="#" class="nav-link">Creator</a>
-                                </div>
-                                <div class="li" id="page-auth_signIn">
-                                    <a href="#" class="nav-link">Sign-In</a>
-                                </div>
-                                <div class="li" id="page-auth_signUp">
-                                    <a href="#" class="nav-link">Sign-Up</a>
-                                </div>
-                                <div class="li" id="page-auth_signOut">
-                                    <a href="index.html" class="nav-link">Sign-Out</a>
-                                </div>
+<div class="page-home-wrapper">
+    <div class="page-home">
+        <header class="page-home__navbar-wrapper">
+            <nav class="navbar-wrapper__navbar">
+                <span class="navbar__brand-wrapper">
+                    <span class="navbar__brand">
+                        <b class="brand__name">JukeBox</b>
+                    </span>
+                </span>
+                <div class="navbar__collapse-wrapper">
+                    <div class="collapse-wrapper__collapse">
+                        <div class="collapse__nav-wrapper">
+                            <div class="nav-wrapper__nav">
+                                <span class="nav__li" id="page-home">
+                                    <a href="index.html" class="li">Home</a>
+                                </span>
+                                <span class="nav__li" id="page-popular">
+                                    <a href="#" class="li">Popular</a>
+                                </span>
+                                <span class="nav__li" id="page-recent">
+                                    <a href="#" class="li">Recent</a>
+                                </span>
+                                <span class="nav__li" id="page-playlists">
+                                    <a href="#" class="li">Playlists</a>
+                                </span>
+                                <span class="nav__li" id="page-creator">
+                                    <a href="#" class="li">Creator</a>
+                                </span>
+                                <span class="nav__li" id="page-auth_signIn">
+                                    <a href="#" class="li">Sign-In</a>
+                                </span>
+                                <span class="nav__li" id="page-auth_signUp">
+                                    <a href="#" class="li">Sign-Up</a>
+                                </span>
+                                <span class="nav__li" id="page-auth_signOut">
+                                    <a href="index.html" class="li">Sign-Out</a>
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <span class="search-form-group-wrapper" style="flex-direction: row">
-                    <label class="paragraph search-paragraph" for="search">Search:</label>
-                    <input class="search-form-group" type="search" id="search"/>
-                    <button class="search-form-group-button"></button>
-                </span>
-            </div>
-        </div>
-        <main class="musicplayer">
-            <div class="playlistname-parent">
-                <b class="playlistname">PlaylistName</b>
-                <section class="playlist" id="playlist">
-                    <button class="song-info paragraph">
+                <div class="navbar__search-wrapper">
+                    <form class="search-wrapper__search">
+                        <label class="search__label paragraph" for="search">Search:</label>
+                        <input class="search__input" type="search" id="search"/>
+                        <button class="search__button"></button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+
+        <main class="page-home__music-player">
+            <div class="music-player__playlist">
+                <b class="playlist__name">PlaylistName</b>
+                <section class="playlist__songs" id="playlist">
+                    <button class="songs__info paragraph">
                         Author - Song
                     </button>
-                    <button class="song-info paragraph">
+                    <button class="songs__info paragraph">
                         Author - Song
                     </button>
                     <button class="song-selected-info" disabled>
                         <div class="song-selected-info-child"></div>
                         <div class="song-selected-paragraph">Author - Song</div>
                     </button>
-                    <button class="song-info paragraph">
+                    <button class="songs__info paragraph">
                         Author - Song
                     </button>
-                    <button class="song-info paragraph">
+                    <button class="songs__info paragraph">
                         Author - Song
                     </button>
-                    <button class="song-info paragraph">
+                    <button class="songs__info paragraph">
                         Author - Song
                     </button>
                 </section>
             </div>
-            <div class="btn-song_order-wrapper">
-                <button class="btn-song_order">
+            <div class="music-player__button-wrapper">
+                <button class="button-wrapper__button">
                     <img
-                            class="icn-arrow-left-icn-sm"
+                            class="button__icon"
                             alt=""
                             src="public/button-prev.svg"/>
                 </button>
@@ -100,77 +104,112 @@
                         src="public/song-disk.png"/>
                 <div class="authorname">SongName</div>
             </div>
-            <div class="btn-song_order-wrapper">
-                <button class="btn-song_order">
+            <div class="music-player__button-wrapper">
+                <button class="button-wrapper__button">
                     <img
-                            class="icn-arrow-left-icn-sm"
+                            class="button__icon"
                             alt=""
                             src="public/button-next.svg"/>
                 </button>
             </div>
         </main>
 
-        <div class="jukebox-logo-parent">
-            <aside class="jukebox-logo">
-                <img class="jukebox-logo-icon" alt="" src="public/logo.png"/>
+        <footer class="page-home__footer">
+            <aside class="footer__logo">
+                <img class="logo__icon" alt="" src="public/logo.png"/>
             </aside>
-            <section class="controls-profile-parent">
-                <header class="controls">
-                    <button class="btn-play" id="btn-play">
+            <section class="footer__controls-profile">
+                <header class="controls-profile__controls">
+                    <button class="controls__play" id="btn-play">
                         <img
                                 alt=""
                                 src="public/button-play.svg"/>
                     </button>
-                    <button class="btn-randomize" id="btn-randomize">
+                    <button class="controls__randomize" id="btn-randomize">
                         <img
                                 alt=""
                                 src="public/button-shuffle.svg"/>
                     </button>
-                    <button class="btn-repeat" id="btn-repeat">
+                    <button class="controls__repeat" id="btn-repeat">
                         <img
                                 alt=""
                                 src="public/button-repeat.svg"/>
                     </button>
-                    <button class="btn-like" id="btn-like">
+                    <button class="controls__like" id="btn-like">
                         <img
                                 alt=""
                                 src="public/button-like.svg"/>
                     </button>
-                    <button  class="btn-add" id="btn-add">
+                    <button class="controls__add" id="btn-add">
                         <img
                                 alt=""
                                 src="public/button-add.svg"/>
                     </button>
                 </header>
-                <footer class="profile">
+                <footer class="controls-profile__profile">
                     <img
-                            class="profilepicture-icon"
+                            class="profile__avatar"
                             alt=""
                             src="public/default-avatar.png"
                             id="avatar"
                     />
-                    <div class="link" id="username">ProfileName</div>
+                    <div class="profile__name" id="username">ProfileName</div>
                 </footer>
             </section>
-            <aside class="jukebox-logo">
-                <img class="jukebox-logo-icon" alt="" src="public/logo-mirrored.png"/>
+            <aside class="footer__logo">
+                <img class="logo__icon" alt="" src="public/logo-mirrored.png"/>
             </aside>
-        </div>
+        </footer>
     </div>
 </div>
 
 <script>
-    var btnLikeIcon = document.getElementById("btnLike");
-    if (btnLikeIcon) {
-        btnLikeIcon.addEventListener("click", function (e) {
-            // Please sync "Sign In Page" to the project
+    let btnAdd = document.getElementById("btn-add");
+    if (btnAdd) {
+        btnAdd.addEventListener("click", function (e) {
+            // Add to playlist
         });
     }
 
-    var btnAddIcon = document.getElementById("btnAdd");
-    if (btnAddIcon) {
-        btnAddIcon.addEventListener("click", function (e) {
-            // Please sync "Sign In Page" to the project
+    let btnRepeat = document.getElementById("btn-repeat");
+    if (btnRepeat) {
+        btnRepeat.addEventListener("click", function (e) {
+            // Repeat song one more time <=> update queue
+        });
+    }
+
+    let btnRandomize = document.getElementById("btn-randomize");
+    if (btnRandomize) {
+        btnRandomize.addEventListener("click", function (e) {
+            // Shuffle queue
+        });
+    }
+
+    let btnLike = document.getElementById("btn-like");
+    if (btnLike) {
+        btnLike.addEventListener("click", function (e) {
+            // Add song to Favourites playlist
+        });
+    }
+
+    let btnPlay = document.getElementById("btn-play");
+    if (btnPlay) {
+        btnPlay.addEventListener("click", function (e) {
+            // Play / pause the song
+        });
+    }
+
+    let btnNext = document.getElementById("btn-next");
+    if (btnNext) {
+        btnNext.addEventListener("click", function (e) {
+            // Play next song of the queue
+        });
+    }
+
+    let btnPrev = document.getElementById("btn-prev");
+    if (btnPrev) {
+        btnPrev.addEventListener("click", function (e) {
+            // Play previous song of the queue
         });
     }
 </script>
