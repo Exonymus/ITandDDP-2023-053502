@@ -14,47 +14,47 @@
 <body>
 <div class="page-home-wrapper">
     <div class="page-home">
-        <header class="page-home__navbar-wrapper">
-            <nav class="navbar-wrapper__navbar">
-                <span class="navbar__brand-wrapper">
-                    <span class="navbar__brand">
+        <header class="page-home__header">
+            <nav class="page-home__header__content navbar">
+                <span class="navbar__brand">
+                    <strong class="navbar__brand__content">
                         <b class="brand__name">JukeBox</b>
-                    </span>
+                    </strong>
                 </span>
-                <div class="navbar__collapse-wrapper">
-                    <div class="collapse-wrapper__collapse">
-                        <div class="collapse__nav-wrapper">
-                            <div class="nav-wrapper__nav">
-                                <span class="nav__li" id="page-home">
-                                    <a href="index.html" class="li">Home</a>
-                                </span>
-                                <span class="nav__li" id="page-popular">
-                                    <a href="#" class="li">Popular</a>
-                                </span>
-                                <span class="nav__li" id="page-recent">
-                                    <a href="#" class="li">Recent</a>
-                                </span>
-                                <span class="nav__li" id="page-playlists">
-                                    <a href="#" class="li">Playlists</a>
-                                </span>
-                                <span class="nav__li" id="page-creator">
-                                    <a href="#" class="li">Creator</a>
-                                </span>
-                                <span class="nav__li" id="page-auth_signIn">
-                                    <a href="#" class="li">Sign-In</a>
-                                </span>
-                                <span class="nav__li" id="page-auth_signUp">
-                                    <a href="#" class="li">Sign-Up</a>
-                                </span>
-                                <span class="nav__li" id="page-auth_signOut">
-                                    <a href="index.html" class="li">Sign-Out</a>
-                                </span>
-                            </div>
+                <div class="navbar__collapse">
+                    <div class="navbar__collapse__content">
+                        <div class="collapse__nav">
+                            <ul class="collapse__nav__content">
+                                <li class="nav__link" id="page-home">
+                                    <a href="index.html" class="link">Home</a>
+                                </li>
+                                <li class="nav__link" id="page-popular">
+                                    <a href="#" class="link">Popular</a>
+                                </li>
+                                <li class="nav__link" id="page-recent">
+                                    <a href="#" class="link">Recent</a>
+                                </li>
+                                <li class="nav__link" id="page-playlists">
+                                    <a href="#" class="link">Playlists</a>
+                                </li>
+                                <li class="nav__link" id="page-creator">
+                                    <a href="#" class="link">Creator</a>
+                                </li>
+                                <li class="nav__link" id="page-auth_signIn">
+                                    <a href="#" class="link">Sign-In</a>
+                                </li>
+                                <li class="nav__link" id="page-auth_signUp">
+                                    <a href="#" class="link">Sign-Up</a>
+                                </li>
+                                <li class="nav__link" id="page-auth_signOut">
+                                    <a href="index.html" class="link">Sign-Out</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <div class="navbar__search-wrapper">
-                    <form class="search-wrapper__search">
+                <div class="navbar__search">
+                    <form class="navbar__search__content">
                         <label class="search__label paragraph" for="search">Search:</label>
                         <input class="search__input" type="search" id="search"/>
                         <button class="search__button"></button>
@@ -64,50 +64,63 @@
         </header>
 
         <main class="page-home__music-player">
-            <div class="music-player__playlist">
-                <b class="playlist__name">PlaylistName</b>
-                <section class="playlist__songs" id="playlist">
-                    <button class="songs__info paragraph">
-                        Author - Song
-                    </button>
-                    <button class="songs__info paragraph">
-                        Author - Song
-                    </button>
-                    <button class="song-selected-info" disabled>
-                        <div class="song-selected-info-child"></div>
-                        <div class="song-selected-paragraph">Author - Song</div>
-                    </button>
-                    <button class="songs__info paragraph">
-                        Author - Song
-                    </button>
-                    <button class="songs__info paragraph">
-                        Author - Song
-                    </button>
-                    <button class="songs__info paragraph">
-                        Author - Song
-                    </button>
-                </section>
-            </div>
-            <div class="music-player__button-wrapper">
-                <button class="button-wrapper__button">
+            <section class="music-player__playlist">
+                <header class="playlist__name">PlaylistName</header>
+                <main class="playlist__content" >
+                    <ul class="playlist__queue" id="playlist">
+                        <li class="queue__song">
+                            <button class="song__info paragraph">
+                                Author - Song
+                            </button>
+                        </li>
+                        <li class="queue__song">
+                            <button class="song__info paragraph">
+                                Author - Song
+                            </button>
+                        </li>
+                        <li class="queue__song">
+                            <button class="song__info--selected" disabled>
+                                <b class="info--selected__paragraph">Author - Song</b>
+                            </button>
+                        </li>
+                        <li class="queue__song">
+                            <button class="song__info paragraph">
+                                Author - Song
+                            </button>
+                        </li>
+                        <li class="queue__song">
+                            <button class="song__info paragraph">
+                                Author - Song
+                            </button>
+                        </li>
+                        <li class="queue__song">
+                            <button class="song__info paragraph">
+                                Author - Song
+                            </button>
+                        </li>
+                    </ul>
+                </main>
+            </section>
+            <div class="music-player__controls">
+                <button class="controls__button-order">
                     <img
-                            class="button__icon"
+                            class="button-order__icon"
                             alt=""
                             src="public/button-prev.svg"/>
                 </button>
             </div>
-            <div class="authorname-parent">
-                <div class="authorname">AuthorName</div>
+            <div class="music-player__current-song">
+                <div class="current-song__info">AuthorName</div>
                 <img
-                        class="song-image-icon"
+                        class="current-song__image"
                         alt=""
                         src="public/song-disk.png"/>
-                <div class="authorname">SongName</div>
+                <div class="current-song__info">SongName</div>
             </div>
-            <div class="music-player__button-wrapper">
-                <button class="button-wrapper__button">
+            <div class="music-player__controls">
+                <button class="controls__button-order">
                     <img
-                            class="button__icon"
+                            class="button-order__icon"
                             alt=""
                             src="public/button-next.svg"/>
                 </button>
@@ -119,7 +132,7 @@
                 <img class="logo__icon" alt="" src="public/logo.png"/>
             </aside>
             <section class="footer__controls-profile">
-                <header class="controls-profile__controls">
+                <header class="controls-profile__controls controls">
                     <button class="controls__play" id="btn-play">
                         <img
                                 alt=""
@@ -146,7 +159,7 @@
                                 src="public/button-add.svg"/>
                     </button>
                 </header>
-                <footer class="controls-profile__profile">
+                <main class="controls-profile__profile profile">
                     <img
                             class="profile__avatar"
                             alt=""
@@ -154,7 +167,7 @@
                             id="avatar"
                     />
                     <div class="profile__name" id="username">ProfileName</div>
-                </footer>
+                </main>
             </section>
             <aside class="footer__logo">
                 <img class="logo__icon" alt="" src="public/logo-mirrored.png"/>
