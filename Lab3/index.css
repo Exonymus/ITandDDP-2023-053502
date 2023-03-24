@@ -1,16 +1,74 @@
-.brand__name {
+.paragraph,
+.info--selected__paragraph {
     position: relative;
-    letter-spacing: 0.1px;
-    line-height: 2rem;
+    letter-spacing: 0.2px;
+    line-height: 1.63rem;
+    color: var(--text-color);
+    text-align: left;
+
+    font-size: var(--paragraph-size);
+    font-weight: 500;
+    font-family: var(--paragraph);
 }
 
-.navbar__brand__content,
-.navbar__brand {
+/*Page-Home*/
+.page-home-wrapper {
+    position: relative;
+    background-color: var(--light-background-color);
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: var(--padding-11xs) 0.31rem;
+    box-sizing: border-box;
+    align-items: flex-end;
+    justify-content: flex-end;
+    text-align: center;
+    font-size: 2.25rem;
+    color: var(--color-black);
+    font-family: var(--paragraph);
+}
+
+.page-home {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3.71rem;
+}
+
+/*Page-Home__Header*/
+.page-home__header {
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    color: var(--text-color);
+}
+
+.page-home__header,
+.page-home__header__content {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+}
+
+.page-home__header__content {
+    overflow: hidden;
+    flex-direction: row;
+    padding: 1rem 8.5rem;
+    justify-content: space-between;
+}
+
+/*Navbar__Brand*/
+.navbar__brand,
+.navbar__brand__content {
     width: 11.69rem;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .navbar__brand__content {
@@ -19,56 +77,48 @@
     align-items: flex-start;
 }
 
-.navbar__brand {
-    align-items: center;
-}
-
-.link {
+.brand__name {
     position: relative;
-    list-style-type: none;
-    text-decoration: none;
-    letter-spacing: 0.2px;
-    line-height: 1.5rem;
-    font-weight: 600;
+    letter-spacing: 0.1px;
+    line-height: 2rem;
 }
 
-.link:visited {
-    text-decoration: none;
-    color: var(--color-dimgray);
-}
-.link:link {
-    text-decoration: none;
-    color: var(--color-dimgray);
-}
 
-.link:hover {
-    text-decoration: none;
-    color: var(--primary-color);
-}
-
-.link:focus {
-    text-decoration: none;
-    color: var(--primary-color);
-}
-
-.li-current {
-    flex: 1;
+/*Navbar__Collapse*/
+.navbar__collapse {
+    width: 50.94rem;
+    flex-shrink: 1;
+    display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
-    color: var(--primary-color);
+    text-align: center;
+    font-size: var(--link-size);
+    color: var(--color-dimgray);
 }
 
+.navbar__collapse__content {
+    align-self: stretch;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    padding: 0.25rem 0;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/*Collapse__Nav*/
+.collapse__nav {
+    flex-grow: 1;
+    width: 18.06rem;
+    flex-shrink: 0;
+}
+
+.collapse__nav__content,
 .nav__link,
-.li-current,
-.collapse__nav__content {
+.link--current {
     display: flex;
     align-items: center;
-}
-
-.nav__link {
-    flex: 1;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .collapse__nav__content {
@@ -79,25 +129,66 @@
     gap: 1.31rem;
 }
 
-.collapse__nav {
-    flex-grow: 1;
-    width: 18.06rem;
+/*Nav__Link*/
+.nav__link {
+    flex: 1;
+    list-style-type: none;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.link,
+.link--current {
+    position: relative;
+    margin-left: -2.30rem;
+    padding-left: -2.30rem;
+    list-style-type: none;
+    text-decoration: none;
+    letter-spacing: 0.2px;
+    line-height: 1.5rem;
+    font-weight: 600;
+}
+
+.link--current {
+    color: var(--primary-color);
+}
+
+.link:visited,
+.link:link {
+    text-decoration: none;
+    color: var(--color-dimgray);
+}
+
+.link:hover,
+.link:focus {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+.link--current:visited,
+.link--current:link,
+.link--current:hover,
+.link--current:focus {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+/*Navbar__Search*/
+.navbar__search {
+    flex-direction: row;
+    width: 19.81rem;
     flex-shrink: 0;
 }
 
-.collapse__nav,
-.navbar__brand,
-.navbar__search {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
 .navbar__search__content {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+}
+.search__label {
+    margin-right: 0.25rem;
+    color: var(--text-color);
 }
 .search__input {
     border: 1px solid #dadada;
@@ -107,12 +198,6 @@
     align-self: stretch;
     border-radius: var(--br-8xs);
     overflow: hidden;
-}
-
-.navbar__search {
-    flex-direction: row;
-    width: 19.81rem;
-    flex-shrink: 0;
 }
 .search__button {
     height: 1.5rem;
@@ -129,52 +214,34 @@
 .search__button:active {
     box-shadow:0.02rem 0.02rem 0.02rem var(--color-dimgray);
 }
-.search__label {
-    margin-right: 0.25rem;
-    color: var(--text-color);
-}
 
-.navbar__collapse__content {
-    align-self: stretch;
-    overflow: hidden;
+/*Page-Home__Main*/
+.page-home__music-player {
     display: flex;
     flex-direction: row;
-    padding: 0.25rem 0;
     align-items: center;
-    justify-content: space-between;
-}
-
-.navbar__collapse {
-    width: 50.94rem;
-    flex-shrink: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-size: var(--link-size);
-    color: var(--color-dimgray);
-}
-
-.page-home__header__content,
-.page-home__header {
     align-self: stretch;
-    display: flex;
-    align-items: center;
-}
-
-.page-home__header__content {
-    overflow: hidden;
-    flex-direction: row;
-    padding: 1rem 8.5rem;
-    justify-content: space-between;
-}
-
-.page-home__header {
-    flex-direction: column;
+    border-radius: var(--br-3xs);
+    background-color: #d9d9d9;
+    border: 3px solid var(--color-black);
+    padding: var(--padding-10xl) 2.94rem var(--padding-10xl) 2.81rem;
     justify-content: center;
-    text-align: left;
-    color: var(--text-color);
+    gap: 1.88rem;
+    font-size: 1.56rem;
+}
+
+/*Music-Player__Playlist*/
+.music-player__playlist {
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+    gap: 2.5rem;
+}
+
+.music-player__playlist,
+.playlist__content {
+    display: flex;
+    flex-direction: column;
 }
 
 .playlist__name {
@@ -185,27 +252,20 @@
     line-height: 1.63rem;
 }
 
-.paragraph,
-.song__info {
-    font-size: var(--paragraph-size);
-    font-weight: 500;
-    font-family: var(--paragraph);
+.playlist__content {
+    align-self: stretch;
+    background-color: var(--light-background-color);
+    overflow: auto;
+    justify-content: flex-start;
+    max-height: 20rem;
 }
 
-.paragraph {
-    position: relative;
-    letter-spacing: 0.2px;
-    line-height: 1.63rem;
-    color: var(--text-color);
-    text-align: left;
-}
-
-.song__info,
-.song__info--selected,
-.info--selected__bar {
-    box-sizing: border-box;
-    flex-shrink: 0;
-    width: 100%;
+/*Playlist__Queue*/
+.playlist__queue {
+    margin-bottom: 0.1rem;
+    margin-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    padding-top: 0.1rem;
 }
 
 .queue__song
@@ -232,23 +292,11 @@
     justify-content: flex-start;
 }
 
-.info--selected__bar {
-    position: relative;
-    border-right: 3px solid var(--primary-color);
-    width: 0.19rem;
-    height: 5.21rem;
-}
-
-.info--selected__paragraph {
-    position: relative;
-    padding-left: 1.56rem;
-    font-size: var(--paragraph-size);
-    letter-spacing: 0.2px;
-    line-height: 1.63rem;
-    font-weight: 500;
-    font-family: var(--paragraph);
-    color: var(--primary-color);
-    text-align: left;
+.song__info,
+.song__info--selected {
+    box-sizing: border-box;
+    flex-shrink: 0;
+    width: 100%;
 }
 
 .song__info--selected {
@@ -266,44 +314,20 @@
     justify-content: flex-start;
 }
 
-.playlist__content,
-.music-player__playlist {
-    display: flex;
-    flex-direction: column;
+.info--selected__paragraph {
+    padding-left: 1.56rem;
+    color: var(--primary-color);
 }
 
-.playlist__content {
-    align-self: stretch;
-    background-color: var(--light-background-color);
-    overflow: auto;
-    justify-content: flex-start;
-    max-height: 20rem;
-}
-
-.playlist__queue {
-    margin-bottom: 0.1rem;
-    margin-top: 0.1rem;
-    padding-bottom: 0.1rem;
-    padding-top: 0.1rem;
-}
-
-.music-player__playlist {
-    align-items: center;
-    flex: 1;
-    justify-content: center;
-    gap: 2.5rem;
-}
-
-.button-order__icon {
-    position: relative;
-    width: 0.94rem;
-    height: 1.56rem;
-    flex-shrink: 0;
-    overflow: hidden;
-}
-
-.controls__button-order,
+/*Music-Player__Controls*/
 .music-player__controls {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.music-player__controls,
+.controls__button-order {
     display: flex;
     align-items: center;
 }
@@ -319,10 +343,23 @@
     justify-content: flex-start;
 }
 
-.music-player__controls {
+.button-order__icon {
+    position: relative;
+    width: 0.94rem;
+    height: 1.56rem;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+/*Music-Player__Current-Song*/
+.music-player__current-song {
     flex: 1;
+    display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
+    gap: 1.75rem;
+    font-size: var(--font-size-xl);
 }
 
 .current-song__info,
@@ -345,33 +382,18 @@
     object-fit: contain;
 }
 
-.music-player__current-song {
-    flex: 1;
+
+/*Page-Home__Footer*/
+.page-home__footer {
+    align-self: stretch;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.75rem;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
     font-size: var(--font-size-xl);
 }
 
-.page-home__music-player {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.page-home__music-player {
-    align-self: stretch;
-    border-radius: var(--br-3xs);
-    background-color: #d9d9d9;
-    border: 3px solid var(--color-black);
-    padding: var(--padding-10xl) 2.94rem var(--padding-10xl) 2.81rem;
-    justify-content: center;
-    gap: 1.88rem;
-    font-size: 1.56rem;
-}
-
+/*Footer__Logo*/
 .footer__logo {
     user-select: none;
     display: flex;
@@ -379,6 +401,36 @@
     padding: var(--padding-3xs);
     align-items: center;
     justify-content: space-between;
+}
+
+.logo__image {
+    position: relative;
+    width: 20rem;
+    height: 20rem;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+/*Footer__Controls-Profile*/
+.footer__controls-profile {
+    height: 18rem;
+    flex-direction: column;
+}
+
+.footer__controls-profile,
+.controls-profile__profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/*Controls*/
+.controls-profile__controls,
+.profile__avatar {
+    position: relative;
+    width: 12.69rem;
+    height: 5.94rem;
+    flex-shrink: 0;
 }
 
 .controls__play {
@@ -399,52 +451,41 @@
 .controls__like,
 .controls__randomize,
 .controls__repeat {
-    position: absolute;
-    height: 48.42%;
-    width: 22.66%;
-    border-radius: var(--br-3xs);
-    background-color: #d9d9d9;
-}
-
-.controls__add,
-.controls__like,
-.controls__randomize,
-.controls__repeat {
-    top: 0;
-    right: 77.34%;
-    bottom: 51.58%;
-    left: 0;
     max-width: 100%;
     overflow: hidden;
     max-height: 100%;
     object-fit: cover;
     cursor: pointer;
+    position: absolute;
+    height: 48.42%;
+    width: 22.66%;
+    border-radius: var(--br-3xs);
+    background-color: #d9d9d9;
+
+    top: 0;
+    right: 77.34%;
+    bottom: 51.58%;
+    left: 0;
 }
 
-.controls__add {
-    top: 51.58%;
-    bottom: 0;
-}
-
+.controls__add,
 .controls__repeat {
     top: 51.58%;
-    right: 0;
     bottom: 0;
-    left: 77.34%;
 }
+
+.controls__repeat,
 .controls__randomize {
-    top: 0;
     right: 0;
-    bottom: 51.58%;
     left: 77.34%;
 }
 
-.controls-profile__controls,
-.profile__avatar {
-    position: relative;
-    width: 12.69rem;
-    height: 5.94rem;
-    flex-shrink: 0;
+/*Profile*/
+.controls-profile__profile {
+    width: 16.56rem;
+    flex-direction: row;
+    padding: var(--padding-3xs);
+    box-sizing: border-box;
 }
 
 .profile__avatar {
@@ -453,72 +494,16 @@
     height: 6.5rem;
     object-fit: cover;
 }
+.profile__name {
 
-.footer__controls-profile,
-.controls-profile__profile {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }
 
-.controls-profile__profile {
-    width: 16.56rem;
-    flex-direction: row;
-    padding: var(--padding-3xs);
-    box-sizing: border-box;
-}
 
-.footer__controls-profile {
-    height: 18rem;
-    flex-direction: column;
-}
-
-.logo__icon {
-    position: relative;
-    width: 20rem;
-    height: 20rem;
-    flex-shrink: 0;
-    object-fit: cover;
-}
-
-.page-home__footer {
-    align-self: stretch;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    font-size: var(--font-size-xl);
-}
-
-.page-home {
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 3.71rem;
-}
-
-.page-home-wrapper {
-    position: relative;
-    background-color: var(--light-background-color);
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    padding: var(--padding-11xs) 0.31rem;
-    box-sizing: border-box;
-    align-items: flex-end;
-    justify-content: flex-end;
-    text-align: center;
-    font-size: 2.25rem;
-    color: var(--color-black);
-    font-family: var(--paragraph);
-}
+/*Mobile version styles*/
 @media screen and (max-width: 1325px) {
     .navbar__collapse__content,
     .page-home__header__content,
-    .collapse__nav__content{
+    .collapse__nav__content {
         flex-direction: column;
         gap: 0.94rem;
         align-items: center;
@@ -527,6 +512,13 @@
 
     .page-home__header__content {
         gap: 0.06rem;
+    }
+
+
+    .navbar__brand__content,
+    .navbar__collapse__content {
+        align-items: center;
+        justify-content: center;
     }
 }
 

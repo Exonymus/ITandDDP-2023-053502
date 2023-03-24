@@ -38,7 +38,7 @@
                                     <a href="#" class="link">Playlists</a>
                                 </li>
                                 <li class="nav__link" id="page-creator">
-                                    <a href="#" class="link">Creator</a>
+                                    <a href="#" class="link--current">Creator</a>
                                 </li>
                                 <li class="nav__link" id="page-auth_signIn">
                                     <a href="#" class="link">Sign-In</a>
@@ -66,7 +66,7 @@
         <main class="page-home__music-player">
             <section class="music-player__playlist">
                 <header class="playlist__name">PlaylistName</header>
-                <main class="playlist__content" >
+                <main class="playlist__content">
                     <ul class="playlist__queue" id="playlist">
                         <li class="queue__song">
                             <button class="song__info paragraph">
@@ -109,14 +109,18 @@
                             src="public/button-prev.svg"/>
                 </button>
             </div>
-            <div class="music-player__current-song">
-                <div class="current-song__info">AuthorName</div>
-                <img
-                        class="current-song__image"
-                        alt=""
-                        src="public/song-disk.png"/>
-                <div class="current-song__info">SongName</div>
-            </div>
+            <section class="music-player__current-song">
+                <header class="current-song__info">AuthorName</header>
+                <main>
+                    <img
+                            class="current-song__image"
+                            alt=""
+                            src="public/song-disk.png"/>
+                </main>
+                <footer class="current-song__info">
+                    SongName
+                </footer>
+            </section>
             <div class="music-player__controls">
                 <button class="controls__button-order">
                     <img
@@ -129,7 +133,7 @@
 
         <footer class="page-home__footer">
             <aside class="footer__logo">
-                <img class="logo__icon" alt="" src="public/logo.png"/>
+                <img class="logo__image" alt="" src="public/logo.png"/>
             </aside>
             <section class="footer__controls-profile">
                 <header class="controls-profile__controls controls">
@@ -170,7 +174,7 @@
                 </main>
             </section>
             <aside class="footer__logo">
-                <img class="logo__icon" alt="" src="public/logo-mirrored.png"/>
+                <img class="logo__image" alt="" src="public/logo-mirrored.png"/>
             </aside>
         </footer>
     </div>
