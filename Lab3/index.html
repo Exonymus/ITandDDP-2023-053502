@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="initial-scale=1, width=device-width"/>
-    <link rel="stylesheet" href="./global.css"/>
-    <link rel="stylesheet" href="./index.css"/>
+    <link rel="stylesheet" href="css/global.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
     <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"/>
-    <link rel="icon" type="image/x-icon" href="/public/titile-icon.webp">
+    <link rel="icon" type="image/x-icon" href="public/title-icon.webp">
     <title>JukeBox</title>
 </head>
 <body>
@@ -26,19 +26,19 @@
                         <div class="collapse__nav">
                             <ul class="collapse__nav__content">
                                 <li class="nav__link" id="page-home">
-                                    <a href="index.html" class="link">Home</a>
+                                    <a href="index.html" class="link link--current">Home</a>
                                 </li>
                                 <li class="nav__link" id="page-popular">
-                                    <a href="#" class="link">Popular</a>
+                                    <button class="link" id="nav-btn-popular">Popular</button>
                                 </li>
                                 <li class="nav__link" id="page-recent">
-                                    <a href="#" class="link">Recent</a>
+                                    <button class="link" id="nav-btn-recent">Recent</button>
                                 </li>
                                 <li class="nav__link" id="page-playlists">
-                                    <a href="#" class="link">Playlists</a>
+                                    <button class="link" id="nav-btn-playlists">Playlists</button>
                                 </li>
                                 <li class="nav__link" id="page-creator">
-                                    <a href="#" class="link--current">Creator</a>
+                                    <a href="#" class="link">Creator</a>
                                 </li>
                                 <li class="nav__link" id="page-auth_signIn">
                                     <a href="#" class="link">Sign-In</a>
@@ -65,44 +65,44 @@
 
         <main class="page-home__music-player">
             <section class="music-player__playlist">
-                <header class="playlist__name">PlaylistName</header>
+                <header class="playlist__name">Nothing to Play</header>
                 <main class="playlist__content">
                     <ul class="playlist__queue" id="playlist">
                         <li class="queue__song">
-                            <button class="song__info paragraph">
-                                Author - Song
+                            <button class="song__info">
+                                <b class="paragraph">Author1 - Song1</b>
                             </button>
                         </li>
                         <li class="queue__song">
-                            <button class="song__info paragraph">
-                                Author - Song
+                            <button class="song__info">
+                                <b class="paragraph">Author2 - Song2</b>
                             </button>
                         </li>
                         <li class="queue__song">
-                            <button class="song__info--selected" disabled>
-                                <b class="info--selected__paragraph">Author - Song</b>
+                            <button class="song__info">
+                                <b class="paragraph">Author3 - Song3</b>
                             </button>
                         </li>
                         <li class="queue__song">
-                            <button class="song__info paragraph">
-                                Author - Song
+                            <button class="song__info">
+                                <b class="paragraph">Author4 - Song4</b>
                             </button>
                         </li>
                         <li class="queue__song">
-                            <button class="song__info paragraph">
-                                Author - Song
+                            <button class="song__info">
+                                <b class="paragraph">Author5 - Song5</b>
                             </button>
                         </li>
                         <li class="queue__song">
-                            <button class="song__info paragraph">
-                                Author - Song
+                            <button class="song__info">
+                                <b class="paragraph">Author6 - Song6</b>
                             </button>
                         </li>
                     </ul>
                 </main>
             </section>
             <div class="music-player__controls">
-                <button class="controls__button-order">
+                <button class="controls__button-order" id="btn-prev">
                     <img
                             class="button-order__icon"
                             alt=""
@@ -115,14 +115,14 @@
                     <img
                             class="current-song__image"
                             alt=""
-                            src="public/song-disk.png"/>
+                            src="public/discs/song-disk--01.png"/>
                 </main>
                 <footer class="current-song__info">
                     SongName
                 </footer>
             </section>
             <div class="music-player__controls">
-                <button class="controls__button-order">
+                <button class="controls__button-order" id="btn-next">
                     <img
                             class="button-order__icon"
                             alt=""
@@ -139,27 +139,27 @@
                 <header class="controls-profile__controls controls">
                     <button class="controls__play" id="btn-play">
                         <img
-                                alt=""
+                                alt="Play/Pause"
                                 src="public/button-play.svg"/>
                     </button>
                     <button class="controls__randomize" id="btn-randomize">
                         <img
-                                alt=""
+                                alt="Shuffle the queue"
                                 src="public/button-shuffle.svg"/>
                     </button>
-                    <button class="controls__repeat" id="btn-repeat">
+                    <button class="controls__repeat" id="btn-repeat" disabled>
                         <img
-                                alt=""
+                                alt="Repeat current song"
                                 src="public/button-repeat.svg"/>
                     </button>
                     <button class="controls__like" id="btn-like">
                         <img
-                                alt=""
+                                alt="Add to favourites"
                                 src="public/button-like.svg"/>
                     </button>
                     <button class="controls__add" id="btn-add">
                         <img
-                                alt=""
+                                alt="Add to playlist"
                                 src="public/button-add.svg"/>
                     </button>
                 </header>
@@ -179,56 +179,6 @@
         </footer>
     </div>
 </div>
-
-<script>
-    let btnAdd = document.getElementById("btn-add");
-    if (btnAdd) {
-        btnAdd.addEventListener("click", function (e) {
-            // Add to playlist
-        });
-    }
-
-    let btnRepeat = document.getElementById("btn-repeat");
-    if (btnRepeat) {
-        btnRepeat.addEventListener("click", function (e) {
-            // Repeat song one more time <=> update queue
-        });
-    }
-
-    let btnRandomize = document.getElementById("btn-randomize");
-    if (btnRandomize) {
-        btnRandomize.addEventListener("click", function (e) {
-            // Shuffle queue
-        });
-    }
-
-    let btnLike = document.getElementById("btn-like");
-    if (btnLike) {
-        btnLike.addEventListener("click", function (e) {
-            // Add song to Favourites playlist
-        });
-    }
-
-    let btnPlay = document.getElementById("btn-play");
-    if (btnPlay) {
-        btnPlay.addEventListener("click", function (e) {
-            // Play / pause the song
-        });
-    }
-
-    let btnNext = document.getElementById("btn-next");
-    if (btnNext) {
-        btnNext.addEventListener("click", function (e) {
-            // Play next song of the queue
-        });
-    }
-
-    let btnPrev = document.getElementById("btn-prev");
-    if (btnPrev) {
-        btnPrev.addEventListener("click", function (e) {
-            // Play previous song of the queue
-        });
-    }
-</script>
+<script src="js/index.js"></script>
 </body>
 </html>

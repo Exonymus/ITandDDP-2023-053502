@@ -139,6 +139,11 @@
 
 .link,
 .link--current {
+    background: none!important;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
     position: relative;
     margin-left: -2.30rem;
     padding-left: -2.30rem;
@@ -147,10 +152,13 @@
     letter-spacing: 0.2px;
     line-height: 1.5rem;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .link--current {
     color: var(--primary-color);
+    background: none!important;
+    border: none;
 }
 
 .link:visited,
@@ -205,7 +213,7 @@
     border: 1px solid #dadada;
     background-color: #f5f5f5;
     border-radius: var(--br-8xs);
-    background-image: url("public/ic-search.svg");
+    background-image: url("../public/ic-search.svg");
     background-position: center;
     background-size: contain;
     margin-left: 0.25rem;
@@ -375,7 +383,7 @@
 }
 
 .current-song__image {
-    max-height: 19.5rem;
+    max-height: 19.4rem;
     user-select: none;
     overflow: hidden;
     flex-shrink: 0;
@@ -536,5 +544,17 @@
     .music-player__playlist {
         flex: unset;
         align-self: stretch;
+    }
+}
+
+@media screen and (max-width: 525px) {
+    .current-song__image {
+        max-height: 13.5rem;
+    }
+    .music-player__current-song {
+        order: 2;
+    }
+    .music-player__controls {
+        order: 0;
     }
 }
