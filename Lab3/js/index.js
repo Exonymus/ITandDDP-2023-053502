@@ -7,6 +7,7 @@ navLinks.forEach(link => {
 
     if (linkButton) { // Check if linkButton exists
         linkButton.addEventListener('click', () => {
+            clearSelectedSong();
             // Add 'link--current' class to clicked button
             const currentLinkButton = document.querySelector('.link--current');
             currentLinkButton.classList.remove('link--current');
@@ -15,6 +16,7 @@ navLinks.forEach(link => {
             if (linkButton.tagName === "BUTTON") {
                 // Change playlist name based on clicked button
                 playlistName.textContent = linkButton.textContent;
+                clearQueue();
             }
         });
     }
@@ -22,8 +24,12 @@ navLinks.forEach(link => {
 
 const searchForm = document.querySelector('.navbar__search__content');
 searchForm.addEventListener('submit', (event) => {
+    clearSelectedSong();
+    clearQueue();
     event.preventDefault();
     playlistName.textContent = "Search Results";
+
+    // Search for the songs [API functionality]
 });
 
 
@@ -40,6 +46,8 @@ if (btnNext) {
     btnNext.addEventListener("click", function (e) {
         switchSongByButton("next");
     });
+
+    // Play next song [API functionality]
 }
 
 let btnPrev = document.getElementById("btn-prev");
@@ -47,59 +55,86 @@ if (btnPrev) {
     btnPrev.addEventListener("click", function (e) {
         switchSongByButton("prev");
     });
+
+    // Play previous song [API functionality]
 }
 
-function switchSongByClick(event) {
-    // Enable repeat button
-    document.querySelector("#btn-repeat").removeAttribute("disabled");
-
-    // Get the current selected song button and switch its classes
-    let currentSelectedButton = document.querySelector(".song__info--selected");
-    if (currentSelectedButton) {
-        currentSelectedButton.classList.remove("song__info--selected");
-        currentSelectedButton.classList.add("song__info");
-        currentSelectedButton.removeAttribute("disabled");
-        currentSelectedButton.querySelector("b").classList.remove("info--selected__paragraph");
-        currentSelectedButton.querySelector("b").classList.add("paragraph");
-        currentSelectedButton.classList.remove("current-selected-song");
+function switchSong(current, next = null) {
+    if (current) {
+        current.classList.remove("song__info--selected");
+        current.classList.add("song__info");
+        current.removeAttribute("disabled");
+        current.querySelector("b").classList.remove("info--selected__paragraph");
+        current.querySelector("b").classList.add("paragraph");
+        current.classList.remove("current-selected-song");
     }
 
-    // Get the newly selected song button and switch its classes
-    let newSelectedButton = event.target.closest("button");
-    if (newSelectedButton) {
-        newSelectedButton.classList.remove("song__info");
-        newSelectedButton.classList.add("song__info--selected");
-        newSelectedButton.setAttribute("disabled", "");
-        newSelectedButton.querySelector("b").classList.remove("paragraph");
-        newSelectedButton.querySelector("b").classList.add("info--selected__paragraph");
-        newSelectedButton.classList.add("current-selected-song");
+    if (next) {
+        next.classList.remove("song__info");
+        next.classList.add("song__info--selected");
+        next.setAttribute("disabled", "");
+        next.querySelector("b").classList.remove("paragraph");
+        next.querySelector("b").classList.add("info--selected__paragraph");
+        next.classList.add("current-selected-song");
 
         // Scroll to the newly selected song button
-        newSelectedButton.scrollIntoView({behavior: "smooth", block: "nearest"});
+        next.scrollIntoView({behavior: "smooth", block: "nearest"});
 
         // Update the current song image
-        songOrder = Array.from(event.target.closest("ul").children).indexOf(event.target.closest("li")) + 1;
         document.querySelector(".current-song__image").src = `public/discs/song-disk--0${(songOrder - 1) % 9 + 1}.png`;
     }
 }
 
+function clearSelectedSong() {
+    let currentSelectedSong = document.querySelector(".song__info--selected");
+    switchSong(currentSelectedSong);
+    document.getElementById("playlist").scrollIntoView({behavior: "smooth", block: "start"});
+    document.querySelector("#btn-repeat").setAttribute("disabled", "");
+    document.querySelector("#btn-add").setAttribute("disabled", "");
+    document.querySelector("#btn-like").setAttribute("disabled", "");
+    document.getElementById("btn-like").children[0].setAttribute("src", "public/button-like.svg");
+    document.querySelector(".current-song__image").src = `public/discs/song-disk--01.png`;
+}
 
-function switchSongByButton(button) {
-    // Enable repeat button
+function clearQueue() {
+    document.getElementById("playlist").innerHTML = "";
+}
+
+function switchSongByClick(event) {
+    // Enable repeat & like & add buttons
     document.querySelector("#btn-repeat").removeAttribute("disabled");
+    document.querySelector("#btn-like").removeAttribute("disabled");
+    document.querySelector("#btn-add").removeAttribute("disabled");
+
+    // Check if song already 'liked' [API functionality]
+
+    // Switch like button
+    document.getElementById("btn-like").children[0].setAttribute("src", "public/button-like.svg");
 
     // Get the current selected song button and switch its classes
-    let currentSelectedButton = document.querySelector(".song__info--selected");
-    if (currentSelectedButton) {
-        currentSelectedButton.classList.remove("song__info--selected");
-        currentSelectedButton.classList.add("song__info");
-        currentSelectedButton.removeAttribute("disabled");
-        currentSelectedButton.querySelector("b").classList.remove("info--selected__paragraph");
-        currentSelectedButton.querySelector("b").classList.add("paragraph");
-        currentSelectedButton.classList.remove("current-selected-song");
-    } else {
-        songOrder = 0;
-    }
+    let currentSelectedSong = document.querySelector(".song__info--selected");
+
+    // Get the newly selected song button and switch its classes
+    let newSelectedSong = event.target.closest("button");
+
+    songOrder = Array.from(event.target.closest("ul").children).indexOf(event.target.closest("li")) + 1;
+
+    // Switch songs
+    switchSong(currentSelectedSong, newSelectedSong);
+
+    // Play selected song [API functionality]
+}
+
+function switchSongByButton(button) {
+    // Enable repeat & like & add buttons
+    document.querySelector("#btn-repeat").removeAttribute("disabled");
+    document.querySelector("#btn-like").removeAttribute("disabled");
+    document.querySelector("#btn-add").removeAttribute("disabled");
+
+    // Check if song already 'liked' [API functionality]
+
+    // Switch like button
+    document.getElementById("btn-like").children[0].setAttribute("src", "public/button-like.svg");
 
     if (button === "next") {
         // Play next song of the queue
@@ -115,22 +150,17 @@ function switchSongByButton(button) {
         }
     }
 
-    // Get the newly selected song button and switch its classes
-    let newSelectedButton = document.querySelector(`#playlist li:nth-child(${songOrder}) button`);
-    if (newSelectedButton) {
-        newSelectedButton.classList.remove("song__info");
-        newSelectedButton.classList.add("song__info--selected");
-        newSelectedButton.setAttribute("disabled", "");
-        newSelectedButton.querySelector("b").classList.remove("paragraph");
-        newSelectedButton.querySelector("b").classList.add("info--selected__paragraph");
-        newSelectedButton.classList.add("current-selected-song");
-
-        // Scroll to the newly selected song button
-        newSelectedButton.scrollIntoView({behavior: "smooth", block: "nearest"});
-
-        // Update the current song image
-        document.querySelector(".current-song__image").src = `public/discs/song-disk--0${(songOrder - 1) % 9 + 1}.png`;
+    // Get the current selected song button
+    let currentSelectedSong = document.querySelector(".song__info--selected");
+    if (!currentSelectedSong) {
+        songOrder = 1;
     }
+
+    // Get the newly selected song button
+    let newSelectedSong = document.querySelector(`#playlist li:nth-child(${songOrder}) button`);
+
+    // Switch songs
+    switchSong(currentSelectedSong, newSelectedSong);
 }
 
 // Controls Functions
@@ -190,20 +220,6 @@ if (btnRepeat) {
     });
 }
 
-let btnAdd = document.getElementById("btn-add");
-if (btnAdd) {
-    btnAdd.addEventListener("click", function (e) {
-        // Add to playlist
-    });
-}
-
-let btnLike = document.getElementById("btn-like");
-if (btnLike) {
-    btnLike.addEventListener("click", function (e) {
-        // Add song to Favourites playlist
-    });
-}
-
 let btnPlay = document.getElementById("btn-play");
 if (btnPlay) {
     btnPlay.addEventListener("click", function (e) {
@@ -217,5 +233,45 @@ if (btnPlay) {
         } else {
             playerIcon.setAttribute("src", "public/button-play.svg");
         }
+
+        // Play the current selected or, if not, the first song [API functionality]
     });
 }
+
+let btnLike = document.getElementById("btn-like");
+if (btnLike) {
+    btnLike.addEventListener("click", function (e) {
+        const likeIcon = document.getElementById("btn-like").children[0];
+        if (likeIcon.getAttribute("src") === "public/button-like.svg") {
+            likeIcon.setAttribute("src", "public/button-like--active.svg");
+        } else {
+            likeIcon.setAttribute("src", "public/button-like.svg");
+        }
+
+        // Add song to favourites playlist [API functionality]
+    });
+}
+
+let btnAdd = document.getElementById("btn-add");
+let playlistDropdown = document.getElementById("playlist-dropdown");
+
+btnAdd.addEventListener("click", () => {
+    playlistDropdown.classList.toggle("controls__playlists-dropdown--shown");
+    // Fill playlistDropdown with user playlists [API functionality]
+});
+
+document.querySelectorAll(".controls__playlists-dropdown__content button").forEach((button) => {
+    button.addEventListener("click", () => {
+        playlistDropdown.classList.toggle("controls__playlists-dropdown--shown");
+
+        // Add to proper playlist [API functionality]
+    });
+});
+
+document.addEventListener('click', function(event) {
+    // If user clicks outside the dropdown and the button
+    if (!playlistDropdown.contains(event.target) && event.target.id !== "btn-add" && event.target.id !== "btn-add__image") {
+        // Hide the dropdown
+        playlistDropdown.classList.remove('controls__playlists-dropdown--shown');
+    }
+});

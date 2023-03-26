@@ -55,8 +55,7 @@
                 </div>
                 <div class="navbar__search">
                     <form class="navbar__search__content">
-                        <label class="search__label paragraph" for="search">Search:</label>
-                        <input class="search__input" type="search" id="search"/>
+                        <input class="search__input" placeholder="Search..." type="search" id="search"/>
                         <button class="search__button"></button>
                     </form>
                 </div>
@@ -152,16 +151,38 @@
                                 alt="Repeat current song"
                                 src="public/button-repeat.svg"/>
                     </button>
-                    <button class="controls__like" id="btn-like">
+                    <button class="controls__like" id="btn-like" disabled>
                         <img
                                 alt="Add to favourites"
                                 src="public/button-like.svg"/>
                     </button>
-                    <button class="controls__add" id="btn-add">
-                        <img
-                                alt="Add to playlist"
-                                src="public/button-add.svg"/>
+                    <button class="controls__add" id="btn-add" disabled>
+                        <img id="btn-add__image"
+                             alt="Add to playlist"
+                             src="public/button-add.svg"/>
                     </button>
+                    <div class="controls__playlists-dropdown" id="playlist-dropdown">
+                        <ul class="controls__playlists-dropdown__content">
+                            <li>
+                                <button id="playlist1">Playlist 1</button>
+                            </li>
+                            <li>
+                                <button id="playlist2">Playlist 2</button>
+                            </li>
+                            <li>
+                                <button id="playlist3">Playlist 3</button>
+                            </li>
+                            <li>
+                                <button id="playlist4">Playlist 4</button>
+                            </li>
+                            <li>
+                                <button id="playlist5">Playlist 5</button>
+                            </li>
+                            <li>
+                                <button id="playlist6">Playlist 6</button>
+                            </li>
+                        </ul>
+                    </div>
                 </header>
                 <main class="controls-profile__profile profile">
                     <img
