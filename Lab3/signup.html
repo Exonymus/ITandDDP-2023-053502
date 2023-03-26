@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="initial-scale=1, width=device-width"/>
+    <link rel="stylesheet" href="css/global.css"/>
+    <link rel="stylesheet" href="css/signin.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"/>
+    <link rel="icon" type="image/x-icon" href="public/title-icon.webp">
+    <title>Sign In</title>
+</head>
+<body>
+<div class="page-home-wrapper">
+    <div class="page-home">
+        <header class="page-home__header">
+            <nav class="page-home__header__content navbar">
+                <span class="navbar__brand">
+                    <strong class="navbar__brand__content">
+                        <b class="brand__name">JukeBox</b>
+                    </strong>
+                </span>
+                <div class="navbar__collapse">
+                    <div class="navbar__collapse__content">
+                        <div class="collapse__nav">
+                            <ul class="collapse__nav__content">
+                                <li class="nav__link" id="page-home">
+                                    <a href="index.html" class="link">Home</a>
+                                </li>
+                                <li class="nav__link" id="page-popular">
+                                    <button class="link" id="nav-btn-popular">Popular</button>
+                                </li>
+                                <li class="nav__link" id="page-auth_signIn">
+                                    <a href="signin.html" class="link">Sign-In</a>
+                                </li>
+                                <li class="nav__link" id="page-auth_signUp">
+                                    <a href="signup.html" class="link link--current">Sign-Up</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="navbar__search">
+                    <form class="navbar__search__content">
+                        <input class="search__input" placeholder="Search..." type="search" id="search"/>
+                        <button class="search__button"></button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+        <main class="page-home__music-player">
+            <section class="auth__form">
+                <b class="header">SIGN IN</b>
+                <form class="main" action="index.html" method="post" id="sign-in__form">
+                    <input
+                            class="auth__input-field"
+                            type="text"
+                            placeholder="Username"
+                            maxlength="{10}"
+                            minlength="{4}"
+                            required
+                    />
+                    <input
+                            class="auth__input-field"
+                            type="password"
+                            placeholder="Password"
+                            minlength="{8}"
+                            required
+                    />
+                    <div class="a-signin" id="aSignInContainer">
+                        <button class="btn-area" type="submit"><b class="sign-in">Sign Up</b> </button>
+                    </div>
+                </form>
+                <a class="signinlink" href="signin.html">
+                    Already a JukeBox user? Sign In
+                </a>
+            </section>
+            <img class="auth__img" alt="" src="public/sign-up__img.svg"/>
+        </main>
+        <footer class="page-home__footer">
+            <aside class="footer__logo">
+                <img class="logo__image" alt="" src="public/logo.png"/>
+            </aside>
+            <aside class="footer__logo">
+                <img class="logo__image" alt="" src="public/logo-mirrored.png"/>
+            </aside>
+        </footer>
+    </div>
+</div>
+
+<script>
+    var aSignInContainer = document.getElementById("aSignInContainer");
+    if (aSignInContainer) {
+        aSignInContainer.addEventListener("click", function (e) {
+            // Please sync "Authorised Home Page" to the project
+        });
+    }
+
+    var footerText = document.getElementById("footerText");
+    if (footerText) {
+        footerText.addEventListener("click", function (e) {
+            // Please sync "Sign Up Page" to the project
+        });
+    }
+</script>
+</body>
+</html>

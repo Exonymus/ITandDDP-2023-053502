@@ -1,0 +1,212 @@
+/*Page-SignIn*/
+.page-signin-wrapper {
+    position: relative;
+    background-color: var(--light-background-color);
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: var(--padding-11xs) 0.31rem;
+    box-sizing: border-box;
+    align-items: flex-end;
+    justify-content: flex-end;
+    text-align: center;
+    font-size: 2.25rem;
+    color: var(--color-black);
+    font-family: var(--paragraph);
+}
+
+.page-signin {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3.71rem;
+}
+
+/*Page-SignIn__Header*/
+.page-signin__header {
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    color: var(--text-color);
+}
+
+.page-signin__header,
+.page-signin__header__content {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+}
+
+.page-signin__header__content {
+    overflow: hidden;
+    flex-direction: row;
+    padding: 1rem 8.5rem;
+    justify-content: space-between;
+}
+
+/*Page-SignIn__Auth*/
+.page-signin__auth {
+    height: 26.212rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: stretch;
+    border-radius: var(--br-3xs);
+    background-color: #d9d9d9;
+    border: 3px solid var(--color-black);
+    padding: var(--padding-10xl) 2.94rem var(--padding-10xl) 2.81rem;
+    justify-content: center;
+    gap: 7.88rem;
+    font-size: 1.56rem;
+}
+
+
+
+
+.auth__input-field {
+    border: 0;
+    border-bottom: 0.2rem  solid var(--text-color);
+    background-color: var(--color-whitesmoke-100);
+    font-family: var(--font-raleway);
+    font-size: 1.12rem;
+    width: 18.12rem;
+    height: 3.19rem;
+    padding-left: 0.85rem;
+}
+
+.btn-area {
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    background-color: #354545;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 4px;
+}
+.sign-in {
+    position: absolute;
+    height: 37.5%;
+    width: 58.76%;
+    top: 30.55%;
+    left: 20.62%;
+    font-size: 0.96rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-family: var(--paragraph);
+    color: var(--light-background-color);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.a-signin {
+    position: relative;
+    width: 19.2rem;
+    height: 3.2rem;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+.main {
+    height: 15.96rem;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.signuplink {
+    position: relative;
+    font-size: 0.94rem;
+    letter-spacing: 0.1px;
+    line-height: 2rem;
+}
+
+.signuplink:visited,
+.signuplink:link {
+    text-decoration: none;
+    color: #354545;
+}
+
+.signuplink:hover,
+.signuplink:focus {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+.auth__form {
+    height: 26.08rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    font-size: 4rem;
+    color: var(--text-color);
+    font-family: var(--paragraph);
+}
+.auth__img {
+    position: relative;
+    width: 22.75rem;
+    height: 22.75rem;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+.main-sign-in,
+.signin-section-parent {
+    display: flex;
+    justify-content: space-between;
+}
+.signin-section-parent {
+    width: 55.38rem;
+    flex-direction: row;
+    align-items: center;
+}
+.main-sign-in {
+    height: 26.13rem;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/*Page-SignIn__Footer*/
+.page-signin__footer {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    font-size: var(--font-size-xl);
+}
+
+/*Mobile version styles*/
+@media screen and (max-width: 1325px) {
+    .page-signin__header__content {
+        flex-direction: column;
+        gap: 0.94rem;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .page-signin__header__content {
+        gap: 0.06rem;
+    }
+}
+
+@media screen and (max-width: 880px) {
+    #sign-in__img,
+    #footer__logo-right {
+        display: none;
+    }
+
+    .page-signin__footer {
+        display: contents;
+    }
+}
