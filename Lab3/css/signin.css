@@ -1,4 +1,4 @@
-/*Page-SignIn*/
+/*Page-Signup*/
 .page-signin-wrapper {
     position: relative;
     background-color: var(--light-background-color);
@@ -25,7 +25,7 @@
     gap: 3.71rem;
 }
 
-/*Page-SignIn__Header*/
+/*Page-Signup__Header*/
 .page-signin__header {
     flex-direction: column;
     justify-content: center;
@@ -47,9 +47,9 @@
     justify-content: space-between;
 }
 
-/*Page-SignIn__Auth*/
-.page-signin__auth {
-    height: 26.212rem;
+/*Page-Signup__Main*/
+.page-signin__main {
+    height: 26.2125rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -63,120 +63,7 @@
     font-size: 1.56rem;
 }
 
-
-
-
-.auth__input-field {
-    border: 0;
-    border-bottom: 0.2rem  solid var(--text-color);
-    background-color: var(--color-whitesmoke-100);
-    font-family: var(--font-raleway);
-    font-size: 1.12rem;
-    width: 18.12rem;
-    height: 3.19rem;
-    padding-left: 0.85rem;
-}
-
-.btn-area {
-    cursor: pointer;
-    border: 0;
-    padding: 0;
-    background-color: #354545;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-radius: 4px;
-}
-.sign-in {
-    position: absolute;
-    height: 37.5%;
-    width: 58.76%;
-    top: 30.55%;
-    left: 20.62%;
-    font-size: 0.96rem;
-    text-transform: uppercase;
-    font-weight: 500;
-    font-family: var(--paragraph);
-    color: var(--light-background-color);
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.a-signin {
-    position: relative;
-    width: 19.2rem;
-    height: 3.2rem;
-    flex-shrink: 0;
-    cursor: pointer;
-}
-.main {
-    height: 15.96rem;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
-.signuplink {
-    position: relative;
-    font-size: 0.94rem;
-    letter-spacing: 0.1px;
-    line-height: 2rem;
-}
-
-.signuplink:visited,
-.signuplink:link {
-    text-decoration: none;
-    color: #354545;
-}
-
-.signuplink:hover,
-.signuplink:focus {
-    text-decoration: none;
-    color: var(--primary-color);
-}
-
-.auth__form {
-    height: 26.08rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    text-align: left;
-    font-size: 4rem;
-    color: var(--text-color);
-    font-family: var(--paragraph);
-}
-.auth__img {
-    position: relative;
-    width: 22.75rem;
-    height: 22.75rem;
-    flex-shrink: 0;
-    object-fit: cover;
-}
-.main-sign-in,
-.signin-section-parent {
-    display: flex;
-    justify-content: space-between;
-}
-.signin-section-parent {
-    width: 55.38rem;
-    flex-direction: row;
-    align-items: center;
-}
-.main-sign-in {
-    height: 26.13rem;
-    flex-shrink: 0;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-/*Page-SignIn__Footer*/
+/*Page-Signup__Footer*/
 .page-signin__footer {
     align-self: stretch;
     display: flex;

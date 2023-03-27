@@ -1,18 +1,24 @@
-let isAuthorised = true;
+const searchForm = document.querySelector('.navbar__search__content');
+const audio_player = document.getElementById("audio-player");
 
 window.addEventListener('load', function() {
     // Check the auth
     const urlParams = new URLSearchParams(window.location.search);
-    const login = urlParams.get('login');
-    const pass = urlParams.get('pass');
+    const searchQuery = urlParams.get('search');
+    const action = urlParams.get('action');
 
-// display the data on the page
-    if (login !== "test" && pass !== "test") {
-        isAuthorised = false
+    if (action) {
+        document.getElementById("nav-btn-"+action).click();
+    }
+
+    if (searchQuery) {
+        const searchInput = document.getElementById("searchInput");
+        searchInput.value = searchQuery;
+        searchForm.dispatchEvent(new Event("submit"));
     }
 
     // Show elements based on the value
-    if (isAuthorised) {
+    if (localStorage.getItem('isAuthorised') === "true") {
         document.getElementById('page-recent').classList.toggle('hidden');
         document.getElementById('page-playlists').classList.toggle('hidden');
         document.getElementById('page-creator').classList.toggle('hidden');
@@ -43,6 +49,8 @@ navLinks.forEach(link => {
             currentLinkButton.classList.remove('link--current');
             linkButton.classList.add('link--current');
 
+            window.history.pushState({}, null, `index.html?${linkButton.textContent.toLowerCase()}`);
+
             if (linkButton.tagName === "BUTTON") {
                 // Change playlist name based on clicked button
                 playlistName.textContent = linkButton.textContent;
@@ -50,6 +58,21 @@ navLinks.forEach(link => {
             }
         });
     }
+});
+
+searchForm.addEventListener('submit', (event) => {
+    clearSelectedSong();
+    clearQueue();
+
+    event.preventDefault();
+    const encodedSearchQuery = document.getElementById('searchInput').value;
+
+    // Change the URL without refreshing the page
+    window.history.pushState({}, null, `index.html?search=${encodedSearchQuery}`);
+
+    playlistName.textContent = "Search Results";
+
+    // Search for the songs [API functionality]
 });
 
 let homeLink = document.querySelector('#page-home a');
@@ -63,19 +86,9 @@ let signOutLink = document.querySelector('#page-signOut a');
 signOutLink.addEventListener('click', (event) => {
     event.preventDefault();
 
-    isAuthorised=false;
+    localStorage.setItem('isAuthorised', "false");
 
-    window.location.href = 'signin.html';
-});
-
-const searchForm = document.querySelector('.navbar__search__content');
-searchForm.addEventListener('submit', (event) => {
-    clearSelectedSong();
-    clearQueue();
-    event.preventDefault();
-    playlistName.textContent = "Search Results";
-
-    // Search for the songs [API functionality]
+    location.reload();
 });
 
 
@@ -136,7 +149,7 @@ function clearSelectedSong() {
     document.querySelector("#btn-repeat").setAttribute("disabled", "");
     document.querySelector("#btn-add").setAttribute("disabled", "");
     document.querySelector("#btn-like").setAttribute("disabled", "");
-    document.getElementById("btn-like").children[0].setAttribute("src", "public/button-like.svg");
+    document.getElementById("btn-like").children[0].setAttribute("src", "public/buttons/button-like.svg");
     document.querySelector(".current-song__image").src = `public/discs/song-disk--01.png`;
 }
 
@@ -153,7 +166,7 @@ function switchSongByClick(event) {
     // Check if song already 'liked' [API functionality]
 
     // Switch like button
-    document.getElementById("btn-like").children[0].setAttribute("src", "public/button-like.svg");
+    document.getElementById("btn-like").children[0].setAttribute("src", "public/buttons/button-like.svg");
 
     // Get the current selected song button and switch its classes
     let currentSelectedSong = document.querySelector(".song__info--selected");
@@ -167,6 +180,10 @@ function switchSongByClick(event) {
     switchSong(currentSelectedSong, newSelectedSong);
 
     // Play selected song [API functionality]
+    audio_player.setAttribute("src", "public/test-song.mp3");
+    if (btnPlay.children[0].getAttribute("src") === "public/buttons/button-pause.svg") {
+        audio_player.play();
+    }
 }
 
 function switchSongByButton(button) {
@@ -178,7 +195,7 @@ function switchSongByButton(button) {
     // Check if song already 'liked' [API functionality]
 
     // Switch like button
-    document.getElementById("btn-like").children[0].setAttribute("src", "public/button-like.svg");
+    document.getElementById("btn-like").children[0].setAttribute("src", "public/buttons/button-like.svg");
 
     if (button === "next") {
         // Play next song of the queue
@@ -205,6 +222,11 @@ function switchSongByButton(button) {
 
     // Switch songs
     switchSong(currentSelectedSong, newSelectedSong);
+
+    // Play switched song [API functionality]
+    audio_player.setAttribute("src", "public/test-song.mp3");
+    btnPlay.children[0].setAttribute("src", "public/buttons/button-pause.svg");
+    audio_player.play();
 }
 
 // Controls Functions
@@ -267,34 +289,35 @@ if (btnRepeat) {
 let btnPlay = document.getElementById("btn-play");
 if (btnPlay) {
     btnPlay.addEventListener("click", function () {
-        const playerIcon = document.getElementById("btn-play").children[0];
-        if (playerIcon.getAttribute("src") === "public/button-play.svg") {
-            playerIcon.setAttribute("src", "public/button-pause.svg");
-
+        const playerIcon = btnPlay.children[0];
+        if (playerIcon.getAttribute("src") === "public/buttons/button-play.svg") {
+            playerIcon.setAttribute("src", "public/buttons/button-pause.svg");
             if (!document.querySelector(".song__info--selected")) {
                 btnNext.click();
             }
-        } else {
-            playerIcon.setAttribute("src", "public/button-play.svg");
-        }
 
-        // Play the current selected or, if not, the first song [API functionality]
+            // Play the current selected or, if not, the first song [API functionality]
+            audio_player.play();
+        } else {
+            playerIcon.setAttribute("src", "public/buttons/button-play.svg");
+            audio_player.pause();
+        }
     });
 }
 
 let btnLike = document.getElementById("btn-like");
 if (btnLike) {
     btnLike.addEventListener("click", function () {
-        if (!isAuthorised) {
+        if (localStorage.getItem('isAuthorised') !== "true") {
             window.location.href = 'signin.html';
             return;
         }
 
         const likeIcon = document.getElementById("btn-like").children[0];
-        if (likeIcon.getAttribute("src") === "public/button-like.svg") {
-            likeIcon.setAttribute("src", "public/button-like--active.svg");
+        if (likeIcon.getAttribute("src") === "public/buttons/button-like.svg") {
+            likeIcon.setAttribute("src", "public/buttons/button-like--active.svg");
         } else {
-            likeIcon.setAttribute("src", "public/button-like.svg");
+            likeIcon.setAttribute("src", "public/buttons/button-like.svg");
         }
 
         // Add song to favourites playlist [API functionality]
@@ -304,7 +327,7 @@ if (btnLike) {
 let btnAdd = document.getElementById("btn-add");
 let playlistDropdown = document.getElementById("playlist-dropdown");
 btnAdd.addEventListener("click", () => {
-    if (!isAuthorised) {
+    if (localStorage.getItem('isAuthorised') !== "true") {
         window.location.href = 'signin.html';
         return;
     }

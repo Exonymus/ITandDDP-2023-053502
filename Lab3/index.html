@@ -26,7 +26,7 @@
                         <div class="collapse__nav">
                             <ul class="collapse__nav__content">
                                 <li class="nav__link" id="page-home">
-                                    <a href="index.html" class="link link--current">Home</a>
+                                    <a href="index.html" id="nav-link-home" class="link link--current">Home</a>
                                 </li>
                                 <li class="nav__link" id="page-popular">
                                     <button class="link" id="nav-btn-popular">Popular</button>
@@ -55,7 +55,7 @@
                 </div>
                 <div class="navbar__search">
                     <form class="navbar__search__content">
-                        <input class="search__input" placeholder="Search..." type="search" id="search"/>
+                        <input class="search__input" placeholder="Search..." type="search" id="searchInput"/>
                         <button class="search__button"></button>
                     </form>
                 </div>
@@ -105,7 +105,7 @@
                     <img
                             class="button-order__icon"
                             alt=""
-                            src="public/button-prev.svg"/>
+                            src="public/buttons/button-prev.svg"/>
                 </button>
             </div>
             <section class="music-player__current-song">
@@ -115,6 +115,7 @@
                             class="current-song__image"
                             alt=""
                             src="public/discs/song-disk--01.png"/>
+                    <audio id="audio-player"></audio>
                 </main>
                 <footer class="current-song__info">
                     SongName
@@ -125,41 +126,41 @@
                     <img
                             class="button-order__icon"
                             alt=""
-                            src="public/button-next.svg"/>
+                            src="public/buttons/button-next.svg"/>
                 </button>
             </div>
         </main>
 
         <footer class="page-home__footer">
             <aside class="footer__logo">
-                <img class="logo__image" alt="" src="public/logo.png"/>
+                <img class="logo__image" alt="" src="public/logos/site-logo.png"/>
             </aside>
             <section class="footer__controls-profile">
                 <header class="controls-profile__controls controls">
                     <button class="controls__play" id="btn-play">
                         <img
                                 alt="Play/Pause"
-                                src="public/button-play.svg"/>
+                                src="public/buttons/button-play.svg"/>
                     </button>
                     <button class="controls__randomize" id="btn-randomize">
                         <img
                                 alt="Shuffle the queue"
-                                src="public/button-shuffle.svg"/>
+                                src="public/buttons/button-shuffle.svg"/>
                     </button>
                     <button class="controls__repeat" id="btn-repeat" disabled>
                         <img
                                 alt="Repeat current song"
-                                src="public/button-repeat.svg"/>
+                                src="public/buttons/button-repeat.svg"/>
                     </button>
                     <button class="controls__like" id="btn-like" disabled>
                         <img
                                 alt="Add to favourites"
-                                src="public/button-like.svg"/>
+                                src="public/buttons/button-like.svg"/>
                     </button>
                     <button class="controls__add" id="btn-add" disabled>
                         <img id="btn-add__image"
                              alt="Add to playlist"
-                             src="public/button-add.svg"/>
+                             src="public/buttons/button-add.svg"/>
                     </button>
                     <div class="controls__playlists-dropdown" id="playlist-dropdown">
                         <ul class="controls__playlists-dropdown__content">
@@ -195,7 +196,7 @@
                 </main>
             </section>
             <aside class="footer__logo">
-                <img class="logo__image" alt="" src="public/logo-mirrored.png"/>
+                <img class="logo__image" alt="" src="public/logos/site-logo--mirrored.png"/>
             </aside>
         </footer>
     </div>

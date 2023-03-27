@@ -43,53 +43,53 @@
                 </div>
                 <div class="navbar__search">
                     <form class="navbar__search__content">
-                        <input class="search__input" placeholder="Search..." type="search" id="search"/>
+                        <input class="search__input" placeholder="Search..." type="search" id="searchInput"/>
                         <button class="search__button"></button>
                     </form>
                 </div>
             </nav>
         </header>
-        <main class="page-signin__auth">
-            <section class="auth__form">
-                <b class="header">SIGN IN</b>
-                <form class="main" action="index.html" method="post" id="authForm">
-                    <input
-                            class="auth__input-field"
-                            id="login"
-                            type="text"
-                            placeholder="Username"
-                            maxlength="{10}"
-                            minlength="{4}"
-                            required
-                    />
-                    <input
-                            class="auth__input-field"
-                            id="pass"
-                            type="password"
-                            placeholder="Password"
-                            minlength="{8}"
-                            required
-                    />
-                    <div class="a-signin" id="aSignInContainer">
-                        <button class="btn-area" type="submit">
-                            <b class="sign-in">
-                                Sign Up
-                            </b>
+        <main class="page-signin__main">
+            <section class="main__auth-data">
+                <header class="auth-data__header">
+                    <b>SIGN IN</b>
+                </header>
+                <main class="auth-data__main">
+                    <form class="main__form" action="index.html" method="get" id="authForm">
+                        <input
+                                class="form__input-field"
+                                id="login"
+                                type="text"
+                                placeholder="Username"
+                                maxlength="10"
+                                minlength="4"
+                                required/>
+                        <input
+                                class="form__input-field"
+                                id="pass"
+                                type="password"
+                                placeholder="Password"
+                                minlength="8"
+                                required/>
+                        <button class="form__submit-btn" type="submit">
+                            <b class="submit-btn__text">Sign In</b>
                         </button>
-                    </div>
-                </form>
-                <a class="signuplink" href="signup.html">
-                    Don’t have a JukeBox account yet? Sign Up
-                </a>
+                    </form>
+                </main>
+                <footer class="auth-data__footer">
+                    <a class="auth-data__footer__link" href="signup.html">
+                        Still not a JukeBox user? Sign Up
+                    </a>
+                </footer>
             </section>
-            <img class="auth__img" alt="" src="public/sign-in__img.svg" id="sign-in__img"/>
+            <img class="auth__logo" alt="" src="public/logos/signin-logo.svg" id="sign-in__img"/>
         </main>
         <footer class="page-signin__footer">
             <aside class="footer__logo">
-                <img class="logo__image" alt="" src="public/logo.png"/>
+                <img class="logo__image" alt="" src="public/logos/site-logo.png"/>
             </aside>
             <aside class="footer__logo" id="footer__logo-right">
-                <img class="logo__image" alt="" src="public/logo-mirrored.png"/>
+                <img class="logo__image" alt="" src="public/logos/site-logo--mirrored.png"/>
             </aside>
         </footer>
     </div>
