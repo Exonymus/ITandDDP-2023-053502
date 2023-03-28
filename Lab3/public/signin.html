@@ -8,7 +8,7 @@
     <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"/>
-    <link rel="icon" type="image/x-icon" href="public/title-icon.webp">
+    <link rel="icon" type="image/x-icon" href="img/title-icon.webp">
     <title>Sign In</title>
 </head>
 <body>
@@ -55,14 +55,12 @@
                     <b>SIGN IN</b>
                 </header>
                 <main class="auth-data__main">
-                    <form class="main__form" action="index.html" method="get" id="authForm">
+                    <form class="main__form" action="index.html" method="get" id="authForm" name="signin">
                         <input
                                 class="form__input-field"
-                                id="login"
-                                type="text"
-                                placeholder="Username"
-                                maxlength="10"
-                                minlength="4"
+                                id="email"
+                                type="email"
+                                placeholder="Email"
                                 required/>
                         <input
                                 class="form__input-field"
@@ -82,19 +80,18 @@
                     </a>
                 </footer>
             </section>
-            <img class="auth__logo" alt="" src="public/logos/signin-logo.svg" id="sign-in__img"/>
+            <img class="auth__logo" alt="" src="img/logos/signin-logo.svg" id="sign-in__img"/>
         </main>
         <footer class="page-signin__footer">
             <aside class="footer__logo">
-                <img class="logo__image" alt="" src="public/logos/site-logo.png"/>
+                <img class="logo__image" alt="" src="img/logos/site-logo.png"/>
             </aside>
             <aside class="footer__logo" id="footer__logo-right">
-                <img class="logo__image" alt="" src="public/logos/site-logo--mirrored.png"/>
+                <img class="logo__image" alt="" src="img/logos/site-logo--mirrored.png"/>
             </aside>
         </footer>
     </div>
 </div>
-
-<script src="js/signin.js"></script>
+<script type="module" src="js/auth.mjs"></script>
 </body>
 </html>

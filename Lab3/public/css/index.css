@@ -129,7 +129,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 .song__info,
@@ -355,6 +355,7 @@
     width: 16.56rem;
     flex-direction: row;
     padding: var(--padding-3xs);
+    justify-content: space-around;
     box-sizing: border-box;
 }
 

@@ -1,15 +1,32 @@
+import module from "./music-player.mjs"
+
+function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(name + '=')) {
+            return cookie.substring(name.length + 1);
+        }
+    }
+    return null;
+}
+
 const searchForm = document.querySelector('.navbar__search__content');
 const audio_player = document.getElementById("audio-player");
 
-window.addEventListener('load', function() {
+let changed = false;
+
+window.addEventListener('load', function () {
     // Check the auth
     const urlParams = new URLSearchParams(window.location.search);
     const searchQuery = urlParams.get('search');
     const action = urlParams.get('action');
 
     if (action) {
-        document.getElementById("nav-btn-"+action).click();
+        document.getElementById("nav-btn-" + action).click();
     }
+
+    module.fillPlaylist();
 
     if (searchQuery) {
         const searchInput = document.getElementById("searchInput");
@@ -18,7 +35,7 @@ window.addEventListener('load', function() {
     }
 
     // Show elements based on the value
-    if (localStorage.getItem('isAuthorised') === "true") {
+    if (getCookie("user-id")) {
         document.getElementById('page-recent').classList.toggle('hidden');
         document.getElementById('page-playlists').classList.toggle('hidden');
         document.getElementById('page-creator').classList.toggle('hidden');
@@ -29,10 +46,35 @@ window.addEventListener('load', function() {
         document.getElementById('page-signUp').classList.toggle('hidden');
 
         // Change profile data [API functionality]
-        // avatar.src = database.png
-        // username = database.username
+        if (getCookie("avatar")) {
+            document.getElementById("avatar").setAttribute("src", getCookie("avatar"))
+        }
+        if (getCookie("username")) {
+            document.getElementById("username").innerHTML = getCookie("username");
+        }
     }
 });
+
+// Create a playlist mutation-observer
+const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        if (mutation.type === "childList") {
+            // Child nodes have been added or removed from the playlist element
+            const playlistButtons = document.querySelectorAll("#playlist button");
+            playlistButtons.forEach((button) => {
+                button.addEventListener("click", switchSongByClick);
+            });
+            if (document.querySelectorAll("#playlist button").length === 0)
+            {
+                playlistName.textContent = "Nothing to play"
+            }
+        }
+    });
+});
+
+// Set up the observer to watch for changes to the playlist element
+const observerConfig = { childList: true };
+observer.observe(document.querySelector("#playlist"), observerConfig);
 
 // Nav handlers
 const navLinks = document.querySelectorAll('.nav__link');
@@ -86,7 +128,9 @@ let signOutLink = document.querySelector('#page-signOut a');
 signOutLink.addEventListener('click', (event) => {
     event.preventDefault();
 
-    localStorage.setItem('isAuthorised', "false");
+    document.cookie = "user-id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "avatar=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     location.reload();
 });
@@ -96,9 +140,6 @@ signOutLink.addEventListener('click', (event) => {
 let songOrder = 1;
 let playlistButtons = document.querySelectorAll("#playlist button");
 
-playlistButtons.forEach((button) => {
-    button.addEventListener("click", switchSongByClick);
-});
 
 let btnNext = document.getElementById("btn-next");
 if (btnNext) {
@@ -118,7 +159,16 @@ if (btnPrev) {
     // Play previous song [API functionality]
 }
 
+audio_player.addEventListener("ended", () => {
+    btnNext.click();
+});
+audio_player.addEventListener("canplaythrough", () => {
+    audio_player.play();
+});
+
 function switchSong(current, next = null) {
+    changed = current && current.classList === next.classList || !current;
+
     if (current) {
         current.classList.remove("song__info--selected");
         current.classList.add("song__info");
@@ -138,7 +188,7 @@ function switchSong(current, next = null) {
         next.scrollIntoView({behavior: "smooth", block: "nearest"});
 
         // Update the current song image
-        document.querySelector(".current-song__image").src = `public/discs/song-disk--0${(songOrder - 1) % 9 + 1}.png`;
+        document.querySelector(".current-song__image").src = `img/discs/song-disk--0${(songOrder - 1) % 9 + 1}.png`;
     }
 }
 
@@ -149,8 +199,8 @@ function clearSelectedSong() {
     document.querySelector("#btn-repeat").setAttribute("disabled", "");
     document.querySelector("#btn-add").setAttribute("disabled", "");
     document.querySelector("#btn-like").setAttribute("disabled", "");
-    document.getElementById("btn-like").children[0].setAttribute("src", "public/buttons/button-like.svg");
-    document.querySelector(".current-song__image").src = `public/discs/song-disk--01.png`;
+    document.getElementById("btn-like").children[0].setAttribute("src", "img/buttons/button-like.svg");
+    document.querySelector(".current-song__image").src = `img/discs/song-disk--01.png`;
 }
 
 function clearQueue() {
@@ -166,7 +216,7 @@ function switchSongByClick(event) {
     // Check if song already 'liked' [API functionality]
 
     // Switch like button
-    document.getElementById("btn-like").children[0].setAttribute("src", "public/buttons/button-like.svg");
+    document.getElementById("btn-like").children[0].setAttribute("src", "img/buttons/button-like.svg");
 
     // Get the current selected song button and switch its classes
     let currentSelectedSong = document.querySelector(".song__info--selected");
@@ -178,11 +228,13 @@ function switchSongByClick(event) {
 
     // Switch songs
     switchSong(currentSelectedSong, newSelectedSong);
+    switchAudioData();
 
     // Play selected song [API functionality]
-    audio_player.setAttribute("src", "public/test-song.mp3");
-    if (btnPlay.children[0].getAttribute("src") === "public/buttons/button-pause.svg") {
+    if (btnPlay.children[0].getAttribute("src") === "img/buttons/button-pause.svg") {
+        audio_player.setAttribute("src", newSelectedSong.getAttribute("audio-src"))
         audio_player.play();
+        module.updateTrackCount(newSelectedSong.getAttribute("audio-id"));
     }
 }
 
@@ -195,19 +247,19 @@ function switchSongByButton(button) {
     // Check if song already 'liked' [API functionality]
 
     // Switch like button
-    document.getElementById("btn-like").children[0].setAttribute("src", "public/buttons/button-like.svg");
+    document.getElementById("btn-like").children[0].setAttribute("src", "img/buttons/button-like.svg");
 
     if (button === "next") {
         // Play next song of the queue
         songOrder++;
-        if (songOrder > playlistButtons.length) {
+        if (songOrder > document.querySelectorAll("#playlist button").length) {
             songOrder = 1;
         }
     } else if (button === "prev") {
         // Play previous song of the queue
         songOrder--;
         if (songOrder < 1) {
-            songOrder = playlistButtons.length;
+            songOrder = document.querySelectorAll("#playlist button").length;
         }
     }
 
@@ -224,9 +276,12 @@ function switchSongByButton(button) {
     switchSong(currentSelectedSong, newSelectedSong);
 
     // Play switched song [API functionality]
-    audio_player.setAttribute("src", "public/test-song.mp3");
-    btnPlay.children[0].setAttribute("src", "public/buttons/button-pause.svg");
+    // audio_player.setAttribute("src", "img/test-song.mp3");
+    btnPlay.children[0].setAttribute("src", "img/buttons/button-pause.svg");
+    audio_player.setAttribute("src", newSelectedSong.getAttribute("audio-src"))
+    switchAudioData();
     audio_player.play();
+    module.updateTrackCount(newSelectedSong.getAttribute("audio-id"));
 }
 
 // Controls Functions
@@ -248,7 +303,7 @@ if (btnRandomize) {
 
             // Update the current song image and index
             songOrder = Array.from(playlist.children).indexOf(newSelectedButton.parentNode) + 1;
-            document.querySelector(".current-song__image").src = `public/discs/song-disk--0${(songOrder - 1) % 9 + 1}.png`;
+            document.querySelector(".current-song__image").src = `img/discs/song-disk--0${(songOrder - 1) % 9 + 1}.png`;
         }
     });
 }
@@ -272,6 +327,8 @@ if (btnRepeat) {
         // Create a new button element with the specified classes and text
         let newSongButton = document.createElement("button");
         newSongButton.classList.add("song__info");
+        newSongButton.setAttribute("audio-src", currentSelectedSong.getAttribute("audio-src"));
+        newSongButton.setAttribute("audio-id", currentSelectedSong.getAttribute("audio-id"));
         newSongButton.innerHTML = `<b class="paragraph">${currentSelectedSong.querySelector("b").textContent}</b>`;
         newSongButton.addEventListener("click", switchSongByClick);
 
@@ -286,20 +343,33 @@ if (btnRepeat) {
     });
 }
 
+function switchAudioData() {
+    let curSelected = document.querySelector(".song__info--selected");
+    document.getElementById("artist-name").textContent = curSelected.textContent.split(" - ")[0];
+    document.getElementById("song-name").textContent = curSelected.textContent.split(" - ")[1];
+}
+
 let btnPlay = document.getElementById("btn-play");
 if (btnPlay) {
     btnPlay.addEventListener("click", function () {
         const playerIcon = btnPlay.children[0];
-        if (playerIcon.getAttribute("src") === "public/buttons/button-play.svg") {
-            playerIcon.setAttribute("src", "public/buttons/button-pause.svg");
-            if (!document.querySelector(".song__info--selected")) {
+
+        if (playerIcon.getAttribute("src") === "img/buttons/button-play.svg") {
+            playerIcon.setAttribute("src", "img/buttons/button-pause.svg");
+            let curSelected = document.querySelector(".song__info--selected");
+            if (!curSelected) {
                 btnNext.click();
+            } else if (changed) {
+                module.updateTrackCount(curSelected.getAttribute("audio-id"));
+                audio_player.setAttribute("src", document.querySelector(".song__info--selected").getAttribute("audio-src"))
             }
 
             // Play the current selected or, if not, the first song [API functionality]
+            switchAudioData();
             audio_player.play();
         } else {
-            playerIcon.setAttribute("src", "public/buttons/button-play.svg");
+            playerIcon.setAttribute("src", "img/buttons/button-play.svg");
+            changed = false;
             audio_player.pause();
         }
     });
@@ -308,16 +378,16 @@ if (btnPlay) {
 let btnLike = document.getElementById("btn-like");
 if (btnLike) {
     btnLike.addEventListener("click", function () {
-        if (localStorage.getItem('isAuthorised') !== "true") {
+        if (!getCookie("user-id")) {
             window.location.href = 'signin.html';
             return;
         }
 
         const likeIcon = document.getElementById("btn-like").children[0];
-        if (likeIcon.getAttribute("src") === "public/buttons/button-like.svg") {
-            likeIcon.setAttribute("src", "public/buttons/button-like--active.svg");
+        if (likeIcon.getAttribute("src") === "img/buttons/button-like.svg") {
+            likeIcon.setAttribute("src", "img/buttons/button-like--active.svg");
         } else {
-            likeIcon.setAttribute("src", "public/buttons/button-like.svg");
+            likeIcon.setAttribute("src", "img/buttons/button-like.svg");
         }
 
         // Add song to favourites playlist [API functionality]
@@ -327,7 +397,7 @@ if (btnLike) {
 let btnAdd = document.getElementById("btn-add");
 let playlistDropdown = document.getElementById("playlist-dropdown");
 btnAdd.addEventListener("click", () => {
-    if (localStorage.getItem('isAuthorised') !== "true") {
+    if (!getCookie("user-id")) {
         window.location.href = 'signin.html';
         return;
     }
@@ -345,7 +415,7 @@ document.querySelectorAll(".controls__playlists-dropdown__content button").forEa
     });
 });
 
-document.addEventListener('click', function(event) {
+document.addEventListener('click', function (event) {
     // If user clicks outside the dropdown and the button
     if (!playlistDropdown.contains(event.target) && event.target.id !== "btn-add" && event.target.id !== "btn-add__image") {
         // Hide the dropdown

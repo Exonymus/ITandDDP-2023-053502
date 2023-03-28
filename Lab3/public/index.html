@@ -8,7 +8,7 @@
     <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"/>
-    <link rel="icon" type="image/x-icon" href="public/title-icon.webp">
+    <link rel="icon" type="image/x-icon" href="img/title-icon.webp">
     <title>JukeBox</title>
 </head>
 <body>
@@ -64,40 +64,9 @@
 
         <main class="page-home__music-player">
             <section class="music-player__playlist">
-                <header class="playlist__name">Nothing to Play</header>
+                <header class="playlist__name">Available Songs</header>
                 <main class="playlist__content">
-                    <ul class="playlist__queue" id="playlist">
-                        <li class="queue__song">
-                            <button class="song__info">
-                                <b class="paragraph">Author1 - Song1</b>
-                            </button>
-                        </li>
-                        <li class="queue__song">
-                            <button class="song__info">
-                                <b class="paragraph">Author2 - Song2</b>
-                            </button>
-                        </li>
-                        <li class="queue__song">
-                            <button class="song__info">
-                                <b class="paragraph">Author3 - Song3</b>
-                            </button>
-                        </li>
-                        <li class="queue__song">
-                            <button class="song__info">
-                                <b class="paragraph">Author4 - Song4</b>
-                            </button>
-                        </li>
-                        <li class="queue__song">
-                            <button class="song__info">
-                                <b class="paragraph">Author5 - Song5</b>
-                            </button>
-                        </li>
-                        <li class="queue__song">
-                            <button class="song__info">
-                                <b class="paragraph">Author6 - Song6</b>
-                            </button>
-                        </li>
-                    </ul>
+                    <ul class="playlist__queue" id="playlist"></ul>
                 </main>
             </section>
             <div class="music-player__controls">
@@ -105,19 +74,21 @@
                     <img
                             class="button-order__icon"
                             alt=""
-                            src="public/buttons/button-prev.svg"/>
+                            src="img/buttons/button-prev.svg"/>
                 </button>
             </div>
             <section class="music-player__current-song">
-                <header class="current-song__info">AuthorName</header>
+                <header class="current-song__info" id="artist-name">
+                    AuthorName
+                </header>
                 <main>
                     <img
                             class="current-song__image"
                             alt=""
-                            src="public/discs/song-disk--01.png"/>
+                            src="img/discs/song-disk--01.png"/>
                     <audio id="audio-player"></audio>
                 </main>
-                <footer class="current-song__info">
+                <footer class="current-song__info" id="song-name">
                     SongName
                 </footer>
             </section>
@@ -126,41 +97,41 @@
                     <img
                             class="button-order__icon"
                             alt=""
-                            src="public/buttons/button-next.svg"/>
+                            src="img/buttons/button-next.svg"/>
                 </button>
             </div>
         </main>
 
         <footer class="page-home__footer">
             <aside class="footer__logo">
-                <img class="logo__image" alt="" src="public/logos/site-logo.png"/>
+                <img class="logo__image" alt="" src="img/logos/site-logo.png"/>
             </aside>
             <section class="footer__controls-profile">
                 <header class="controls-profile__controls controls">
                     <button class="controls__play" id="btn-play">
                         <img
                                 alt="Play/Pause"
-                                src="public/buttons/button-play.svg"/>
+                                src="img/buttons/button-play.svg"/>
                     </button>
                     <button class="controls__randomize" id="btn-randomize">
                         <img
                                 alt="Shuffle the queue"
-                                src="public/buttons/button-shuffle.svg"/>
+                                src="img/buttons/button-shuffle.svg"/>
                     </button>
                     <button class="controls__repeat" id="btn-repeat" disabled>
                         <img
                                 alt="Repeat current song"
-                                src="public/buttons/button-repeat.svg"/>
+                                src="img/buttons/button-repeat.svg"/>
                     </button>
                     <button class="controls__like" id="btn-like" disabled>
                         <img
                                 alt="Add to favourites"
-                                src="public/buttons/button-like.svg"/>
+                                src="img/buttons/button-like.svg"/>
                     </button>
                     <button class="controls__add" id="btn-add" disabled>
                         <img id="btn-add__image"
                              alt="Add to playlist"
-                             src="public/buttons/button-add.svg"/>
+                             src="img/buttons/button-add.svg"/>
                     </button>
                     <div class="controls__playlists-dropdown" id="playlist-dropdown">
                         <ul class="controls__playlists-dropdown__content">
@@ -189,18 +160,19 @@
                     <img
                             class="profile__avatar hidden"
                             alt=""
-                            src="public/default-avatar.png"
+                            src="img/default-avatar.png"
                             id="avatar"
                     />
-                    <div class="profile__name hidden" id="username">ProfileName</div>
+                    <p class="profile__name hidden" id="username">ProfileName</p>
                 </main>
             </section>
             <aside class="footer__logo">
-                <img class="logo__image" alt="" src="public/logos/site-logo--mirrored.png"/>
+                <img class="logo__image" alt="" src="img/logos/site-logo--mirrored.png"/>
             </aside>
         </footer>
     </div>
 </div>
-<script src="js/index.js"></script>
+<script type="module" src="js/music-player.mjs"></script>
+<script type="module" src="js/index.js"></script>
 </body>
 </html>
