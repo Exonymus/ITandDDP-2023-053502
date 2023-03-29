@@ -27,8 +27,12 @@ window.addEventListener('load', function () {
     }
 
     if (!searchQuery)
-        module.fillPlaylist();
+        module.fillQueue();
 
+    // Fill user playlists
+    module.fillPlaylists(getCookie("user-id"));
+
+    // Perform search if requested
     if (searchQuery) {
         const searchInput = document.getElementById("searchInput");
         searchInput.value = searchQuery;
@@ -56,30 +60,26 @@ window.addEventListener('load', function () {
     }
 });
 
-// Create a playlist mutation-observer
+// Create a queue mutation-observer
 const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
         if (mutation.type === "childList") {
-            // Child nodes have been added or removed from the playlist element
-            const playlistButtons = document.querySelectorAll("#playlist button");
-            playlistButtons.forEach((button) => {
+            // Child nodes have been added or removed from the queue element
+            const queueButtons = document.querySelectorAll("#queue button");
+            queueButtons.forEach((button) => {
                 button.addEventListener("click", switchSongByClick);
             });
-            // if (document.querySelectorAll("#playlist button").length === 0)
-            // {
-            //     playlistName.textContent = "Nothing to play"
-            // }
         }
     });
 });
 
-// Set up the observer to watch for changes to the playlist element
+// Set up the observer to watch for changes to the queue element
 const observerConfig = { childList: true };
-observer.observe(document.querySelector("#playlist"), observerConfig);
+observer.observe(document.querySelector("#queue"), observerConfig);
 
 // Nav handlers
 const navLinks = document.querySelectorAll('.nav__link');
-const playlistName = document.querySelector('.playlist__name');
+const queueName = document.querySelector('.queue__name');
 
 navLinks.forEach(link => {
     const linkButton = link.querySelector('.link');
@@ -95,8 +95,8 @@ navLinks.forEach(link => {
             window.history.pushState({}, null, `index.html?${linkButton.textContent.toLowerCase()}`);
 
             if (linkButton.tagName === "BUTTON") {
-                // Change playlist name based on clicked button
-                playlistName.textContent = linkButton.textContent;
+                // Change queue name based on clicked button
+                queueName.textContent = linkButton.textContent;
                 module.clearQueue();
             }
         });
@@ -112,7 +112,7 @@ btnPopular.addEventListener('click', () => {
     btnPopular.classList.add('link--current');
 
     window.history.pushState({}, null, `index.html?popular`);
-    playlistName.textContent = "Popular";
+    queueName.textContent = "Popular";
     module.clearQueue();
 
     module.getPopularSongs();
@@ -126,7 +126,7 @@ searchForm.addEventListener('submit', (event) => {
 
     // Change the URL without refreshing the page
     window.history.pushState({}, null, `index.html?search=${encodedSearchQuery}`);
-    document.querySelector('.playlist__name').textContent = "Search Results";
+    document.querySelector('.queue__name').textContent = "Search Results";
 
     // Search for songs in Firebase Firestore
     module.search(encodedSearchQuery);
@@ -153,7 +153,7 @@ signOutLink.addEventListener('click', (event) => {
 
 // Music Player functions
 let songOrder = 1;
-let playlistButtons = document.querySelectorAll("#playlist button");
+let queueButtons = document.querySelectorAll("#queue button");
 
 
 let btnNext = document.getElementById("btn-next");
@@ -257,14 +257,14 @@ function switchSongByButton(button) {
     if (button === "next") {
         // Play next song of the queue
         songOrder++;
-        if (songOrder > document.querySelectorAll("#playlist button").length) {
+        if (songOrder > document.querySelectorAll("#queue button").length) {
             songOrder = 1;
         }
     } else if (button === "prev") {
         // Play previous song of the queue
         songOrder--;
         if (songOrder < 1) {
-            songOrder = document.querySelectorAll("#playlist button").length;
+            songOrder = document.querySelectorAll("#queue button").length;
         }
     }
 
@@ -275,7 +275,7 @@ function switchSongByButton(button) {
     }
 
     // Get the newly selected song button
-    let newSelectedSong = document.querySelector(`#playlist li:nth-child(${songOrder}) button`);
+    let newSelectedSong = document.querySelector(`#queue li:nth-child(${songOrder}) button`);
 
     // Switch songs
     switchSong(currentSelectedSong, newSelectedSong);
@@ -294,9 +294,9 @@ let btnRandomize = document.getElementById("btn-randomize");
 if (btnRandomize) {
     btnRandomize.addEventListener("click", function () {
         // Shuffle queue
-        let playlist = document.getElementById("playlist");
-        for (let i = playlist.children.length; i >= 0; i--) {
-            playlist.appendChild(playlist.children[Math.random() * i | 0]);
+        let queue = document.getElementById("queue");
+        for (let i = queue.children.length; i >= 0; i--) {
+            queue.appendChild(queue.children[Math.random() * i | 0]);
         }
 
         // Update the current song image and index
@@ -307,7 +307,7 @@ if (btnRandomize) {
             newSelectedButton.scrollIntoView({behavior: "smooth", block: "nearest"});
 
             // Update the current song image and index
-            songOrder = Array.from(playlist.children).indexOf(newSelectedButton.parentNode) + 1;
+            songOrder = Array.from(queue.children).indexOf(newSelectedButton.parentNode) + 1;
             document.querySelector(".current-song__image").src = `img/discs/song-disk--0${(songOrder - 1) % 9 + 1}.png`;
         }
     });
@@ -388,9 +388,26 @@ if (btnLike) {
         // Add song to favourites playlist [API functionality]
     });
 }
+const playlistDropdown = document.getElementById("dropdown");
+const addPlaylistForm = document.getElementById("add-playlist");
+addPlaylistForm.addEventListener('submit', (event) => {
+
+    event.preventDefault();
+    const playlistInput = document.getElementById('newPlaylistName');
+    const songId = document.querySelector(".song__info--selected").getAttribute("audio-id");
+
+    // Create new playlist in Firestore
+    module.addPlaylist(getCookie("user-id"), playlistInput.value, songId);
+    playlistDropdown.classList.toggle("controls__playlists-dropdown--shown");
+    alert("Playlist was succesfully created!");
+
+    // Update playlists dropdown
+    document.getElementById("playlists-dropdown").innerHTML = "";
+    playlistInput.value = "";
+    module.fillPlaylists(getCookie("user-id"));
+});
 
 let btnAdd = document.getElementById("btn-add");
-let playlistDropdown = document.getElementById("playlist-dropdown");
 btnAdd.addEventListener("click", () => {
     if (!getCookie("user-id")) {
         window.location.href = 'signin.html';
@@ -400,14 +417,6 @@ btnAdd.addEventListener("click", () => {
     playlistDropdown.classList.toggle("controls__playlists-dropdown--shown");
 
     // Fill playlistDropdown with user playlists [API functionality]
-});
-
-document.querySelectorAll(".controls__playlists-dropdown__content button").forEach((button) => {
-    button.addEventListener("click", () => {
-        playlistDropdown.classList.toggle("controls__playlists-dropdown--shown");
-
-        // Add to proper playlist [API functionality]
-    });
 });
 
 document.addEventListener('click', function (event) {

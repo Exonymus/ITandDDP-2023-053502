@@ -63,10 +63,10 @@
         </header>
 
         <main class="page-home__music-player">
-            <section class="music-player__playlist">
-                <header class="playlist__name">Available Songs</header>
-                <main class="playlist__content">
-                    <ul class="playlist__queue" id="playlist"></ul>
+            <section class="music-player__queue">
+                <header class="queue__name">Available Songs</header>
+                <main class="queue">
+                    <ul class="queue__content" id="queue"></ul>
                 </main>
             </section>
             <div class="music-player__controls">
@@ -133,27 +133,18 @@
                              alt="Add to playlist"
                              src="img/buttons/button-add.svg"/>
                     </button>
-                    <div class="controls__playlists-dropdown" id="playlist-dropdown">
-                        <ul class="controls__playlists-dropdown__content">
-                            <li>
-                                <button id="playlist1">Playlist 1</button>
-                            </li>
-                            <li>
-                                <button id="playlist2">Playlist 2</button>
-                            </li>
-                            <li>
-                                <button id="playlist3">Playlist 3</button>
-                            </li>
-                            <li>
-                                <button id="playlist4">Playlist 4</button>
-                            </li>
-                            <li>
-                                <button id="playlist5">Playlist 5</button>
-                            </li>
-                            <li>
-                                <button id="playlist6">Playlist 6</button>
-                            </li>
-                        </ul>
+                    <div class="controls__playlists-dropdown" id="dropdown">
+                        <ul class="controls__playlists-dropdown__content" id="playlists-dropdown"></ul>
+                        <form class="controls__playlists-dropdown__add-playlist" id="add-playlist">
+                            <button class="add-playlist__button" type="submit"></button>
+                            <input
+                                    class="add-playlist__input"
+                                    placeholder="Name"
+                                    type="text"
+                                    id="newPlaylistName"
+                                    minlength="4"
+                                    required/>
+                        </form>
                     </div>
                 </header>
                 <main class="controls-profile__profile profile">
