@@ -260,8 +260,8 @@ body {
   padding-left: 0.85rem;
 }
 
-.form__input-avatar:hover,
-.form__input-avatar:focus {
+.form__input-file:hover,
+.form__input-file:focus {
   color: var(--primary-color);
   cursor: pointer;
 }
@@ -327,7 +327,7 @@ body {
   color: var(--text-color);
   font-family: var(--paragraph);
 }
-.auth__logo {
+.logo {
   position: relative;
   width: 22.75rem;
   height: 22.75rem;

@@ -1,23 +1,10 @@
-import {initializeApp} from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js";
-import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-storage.js";
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-    apiKey: "AIzaSyAxKLYLXniNLRJY7_A0tgQDNquiGRTu79M",
-    authDomain: "jukebox-655c8.firebaseapp.com",
-    projectId: "jukebox-655c8",
-    storageBucket: "jukebox-655c8.appspot.com",
-    messagingSenderId: "463939212069",
-    appId: "1:463939212069:web:937b136c280fcff49600cc",
-    measurementId: "G-8DR0Y11E4K"
-};
+import module from "./firebase.mjs"
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js";
+import {ref, uploadBytes, getDownloadURL, listAll} from "https://www.gstatic.com/firebasejs/9.18.0/firebase-storage.js";
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app)
-const storage = getStorage(app);
+const auth = module.auth;
+const storage = module.storage;
 
 function authenticate(auth, emailValue, passValue, formName) {
     if (formName === "signup") {
@@ -121,25 +108,4 @@ authForm.addEventListener('submit', (e) => {
                 alert("Invalid credentials")
             }
         });
-});
-
-const popularBtn = document.getElementById("nav-btn-popular");
-popularBtn.addEventListener('click', (event) => {
-    event.preventDefault();
-
-    window.location.href = 'index.html?action=popular';
-});
-
-const searchForm = document.querySelector('.navbar__search__content');
-searchForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    // Get the search query from the input field
-    const searchQuery = document.getElementById('searchInput').value;
-
-    // Encode the search query
-    const encodedSearchQuery = encodeURIComponent(searchQuery);
-
-    // Redirect to the index.html page with the search query as a parameter
-    window.location.href = `index.html?search=${encodedSearchQuery}`;
 });

@@ -26,7 +26,8 @@ window.addEventListener('load', function () {
         document.getElementById("nav-btn-" + action).click();
     }
 
-    module.fillPlaylist();
+    if (!searchQuery)
+        module.fillPlaylist();
 
     if (searchQuery) {
         const searchInput = document.getElementById("searchInput");
@@ -64,10 +65,10 @@ const observer = new MutationObserver((mutations) => {
             playlistButtons.forEach((button) => {
                 button.addEventListener("click", switchSongByClick);
             });
-            if (document.querySelectorAll("#playlist button").length === 0)
-            {
-                playlistName.textContent = "Nothing to play"
-            }
+            // if (document.querySelectorAll("#playlist button").length === 0)
+            // {
+            //     playlistName.textContent = "Nothing to play"
+            // }
         }
     });
 });
@@ -96,25 +97,39 @@ navLinks.forEach(link => {
             if (linkButton.tagName === "BUTTON") {
                 // Change playlist name based on clicked button
                 playlistName.textContent = linkButton.textContent;
-                clearQueue();
+                module.clearQueue();
             }
         });
     }
 });
 
-searchForm.addEventListener('submit', (event) => {
+const btnPopular = document.getElementById("nav-btn-popular");
+btnPopular.addEventListener('click', () => {
     clearSelectedSong();
-    clearQueue();
+    // Add 'link--current' class to clicked button
+    const currentLinkButton = document.querySelector('.link--current');
+    currentLinkButton.classList.remove('link--current');
+    btnPopular.classList.add('link--current');
+
+    window.history.pushState({}, null, `index.html?popular`);
+    playlistName.textContent = "Popular";
+    module.clearQueue();
+
+    module.getPopularSongs();
+});
+
+searchForm.addEventListener('submit', (event) => {
+    module.clearQueue();
 
     event.preventDefault();
     const encodedSearchQuery = document.getElementById('searchInput').value;
 
     // Change the URL without refreshing the page
     window.history.pushState({}, null, `index.html?search=${encodedSearchQuery}`);
+    document.querySelector('.playlist__name').textContent = "Search Results";
 
-    playlistName.textContent = "Search Results";
-
-    // Search for the songs [API functionality]
+    // Search for songs in Firebase Firestore
+    module.search(encodedSearchQuery);
 });
 
 let homeLink = document.querySelector('#page-home a');
@@ -167,7 +182,7 @@ audio_player.addEventListener("canplaythrough", () => {
 });
 
 function switchSong(current, next = null) {
-    changed = current && current.classList === next.classList || !current;
+    changed = current && next && current.classList === next.classList || !current;
 
     if (current) {
         current.classList.remove("song__info--selected");
@@ -195,16 +210,6 @@ function switchSong(current, next = null) {
 function clearSelectedSong() {
     let currentSelectedSong = document.querySelector(".song__info--selected");
     switchSong(currentSelectedSong);
-    document.getElementById("playlist").scrollIntoView({behavior: "smooth", block: "start"});
-    document.querySelector("#btn-repeat").setAttribute("disabled", "");
-    document.querySelector("#btn-add").setAttribute("disabled", "");
-    document.querySelector("#btn-like").setAttribute("disabled", "");
-    document.getElementById("btn-like").children[0].setAttribute("src", "img/buttons/button-like.svg");
-    document.querySelector(".current-song__image").src = `img/discs/song-disk--01.png`;
-}
-
-function clearQueue() {
-    document.getElementById("playlist").innerHTML = "";
 }
 
 function switchSongByClick(event) {
@@ -234,7 +239,7 @@ function switchSongByClick(event) {
     if (btnPlay.children[0].getAttribute("src") === "img/buttons/button-pause.svg") {
         audio_player.setAttribute("src", newSelectedSong.getAttribute("audio-src"))
         audio_player.play();
-        module.updateTrackCount(newSelectedSong.getAttribute("audio-id"));
+        module.updateTrackCount(newSelectedSong.getAttribute("audio-id"), getCookie("user-id"));
     }
 }
 
@@ -281,7 +286,7 @@ function switchSongByButton(button) {
     audio_player.setAttribute("src", newSelectedSong.getAttribute("audio-src"))
     switchAudioData();
     audio_player.play();
-    module.updateTrackCount(newSelectedSong.getAttribute("audio-id"));
+    module.updateTrackCount(newSelectedSong.getAttribute("audio-id"), getCookie("user-id"));
 }
 
 // Controls Functions
@@ -320,26 +325,16 @@ if (btnRepeat) {
             return;
         }
 
-        // Create a new li element with the specified classes
-        let newSong = document.createElement("li");
-        newSong.classList.add("queue__song");
-
-        // Create a new button element with the specified classes and text
-        let newSongButton = document.createElement("button");
-        newSongButton.classList.add("song__info");
-        newSongButton.setAttribute("audio-src", currentSelectedSong.getAttribute("audio-src"));
-        newSongButton.setAttribute("audio-id", currentSelectedSong.getAttribute("audio-id"));
-        newSongButton.innerHTML = `<b class="paragraph">${currentSelectedSong.querySelector("b").textContent}</b>`;
-        newSongButton.addEventListener("click", switchSongByClick);
-
-        // Add the new button element to the new li element
-        newSong.appendChild(newSongButton);
-
-        // Update song amount
-        playlistButtons = document.querySelectorAll("#playlist button")
-
-        // Insert the new li element after the current selected song button's parent li element
-        currentSelectedSong.closest("li").insertAdjacentElement("afterend", newSong);
+        // Repeat the same song
+        let btnRepeatImg = btnRepeat.children[0];
+        if (btnRepeatImg.getAttribute("src") === "img/buttons/button-repeat--active.svg")
+        {
+            btnRepeat.children[0].setAttribute("src", "img/buttons/button-repeat.svg");
+            audio_player.removeAttribute("loop");
+        } else {
+            btnRepeat.children[0].setAttribute("src", "img/buttons/button-repeat--active.svg");
+            audio_player.setAttribute("loop", "");
+        }
     });
 }
 
@@ -360,7 +355,7 @@ if (btnPlay) {
             if (!curSelected) {
                 btnNext.click();
             } else if (changed) {
-                module.updateTrackCount(curSelected.getAttribute("audio-id"));
+                module.updateTrackCount(curSelected.getAttribute("audio-id"), getCookie("user-id"));
                 audio_player.setAttribute("src", document.querySelector(".song__info--selected").getAttribute("audio-src"))
             }
 

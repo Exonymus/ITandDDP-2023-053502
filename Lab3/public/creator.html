@@ -4,18 +4,18 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="initial-scale=1, width=device-width"/>
     <link rel="stylesheet" href="css/global.css"/>
-    <link rel="stylesheet" href="css/signin.css"/>
+    <link rel="stylesheet" href="css/creator.css"/>
     <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"/>
     <link rel="icon" type="image/x-icon" href="img/title-icon.webp">
-    <title>Sign In</title>
+    <title>Creator</title>
 </head>
 <body>
-<div class="page-signin-wrapper">
-    <div class="page-signin">
-        <header class="page-signin__header">
-            <nav class="page-signin__header__content navbar">
+<div class="page-creator-wrapper">
+    <div class="page-creator">
+        <header class="page-creator__header">
+            <nav class="page-creator__header__content navbar">
                 <span class="navbar__brand">
                     <strong class="navbar__brand__content">
                         <b class="brand__name">JukeBox</b>
@@ -26,16 +26,22 @@
                         <div class="collapse__nav">
                             <ul class="collapse__nav__content">
                                 <li class="nav__link" id="page-home">
-                                    <a href="index.html" class="link">Home</a>
+                                    <a href="index.html" id="nav-link-home" class="link">Home</a>
                                 </li>
                                 <li class="nav__link" id="page-popular">
                                     <button class="link" id="nav-btn-popular">Popular</button>
                                 </li>
-                                <li class="nav__link" id="page-signin">
-                                    <a href="signin.html" class="link link--current">Sign-In</a>
+                                <li class="nav__link" id="page-recent">
+                                    <button class="link" id="nav-btn-recent">Recent</button>
                                 </li>
-                                <li class="nav__link" id="page-signup">
-                                    <a href="signup.html" class="link">Sign-Up</a>
+                                <li class="nav__link" id="page-playlists">
+                                    <button class="link" id="nav-btn-playlists">Playlists</button>
+                                </li>
+                                <li class="nav__link" id="page-creator">
+                                    <a href="creator.html" class="link link--current">Creator</a>
+                                </li>
+                                <li class="nav__link" id="page-signOut">
+                                    <a href="index.html" class="link">Sign-Out</a>
                                 </li>
                             </ul>
                         </div>
@@ -49,40 +55,38 @@
                 </div>
             </nav>
         </header>
-        <main class="page-signin__main">
-            <section class="main__auth-data">
-                <header class="auth-data__header">
-                    <b>SIGN IN</b>
+        <main class="page-creator__main">
+            <section class="main__creator-data">
+                <header class="creator-data__header">
+                    <b>CREATOR</b>
                 </header>
-                <main class="auth-data__main">
-                    <form class="main__form" action="index.html" method="get" id="authForm" name="signin">
+                <main class="creator-data__main">
+                    <form class="main__form" method="post" id="creatorForm">
                         <input
                                 class="form__input-field"
-                                id="email"
-                                type="email"
-                                placeholder="Email"
+                                id="song__Artist"
+                                type="text"
+                                placeholder="Artist's name"
                                 required/>
                         <input
                                 class="form__input-field"
-                                id="pass"
-                                type="password"
-                                placeholder="Password"
-                                minlength="8"
+                                id="song__Title"
+                                type="text"
+                                placeholder="Song's name"
                                 required/>
+
+                        <input class="hidden" type="file" id="audio" accept="audio/*"/>
+                        <label class="paragraph form__input-file" for="audio">Click to upload the song</label>
+
                         <button class="form__submit-btn" type="submit">
-                            <b class="submit-btn__text">Sign In</b>
+                            <b class="submit-btn__text">Upload</b>
                         </button>
                     </form>
                 </main>
-                <footer class="auth-data__footer">
-                    <a class="auth-data__footer__link" href="signup.html">
-                        Still not a JukeBox user? Sign Up
-                    </a>
-                </footer>
             </section>
-            <img class="auth__logo logo" alt="" src="img/logos/signin-logo.svg" id="sign-in__img"/>
+            <img class="creator__logo logo" alt="" src="img/logos/creator-logo.svg" id="creator__img"/>
         </main>
-        <footer class="page-signin__footer">
+        <footer class="page-creator__footer">
             <aside class="footer__logo">
                 <img class="logo__image" alt="" src="img/logos/site-logo.png"/>
             </aside>
@@ -93,6 +97,6 @@
     </div>
 </div>
 <script type="module" src="js/global.mjs"></script>
-<script type="module" src="js/auth.mjs"></script>
+<script type="module" src="js/creator.mjs"></script>
 </body>
 </html>
