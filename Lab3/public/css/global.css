@@ -51,6 +51,11 @@ body {
   font-family: var(--paragraph);
 }
 
+.paragraph--special {
+  font-weight: 750;
+  color: #676634FF;
+}
+
 /*Navbar__Brand*/
 .navbar__brand,
 .navbar__brand__content {

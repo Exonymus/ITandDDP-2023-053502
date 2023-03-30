@@ -24,10 +24,11 @@ window.addEventListener('load', function () {
 
     if (action) {
         document.getElementById("nav-btn-" + action).click();
+    } else {
+        // Fill default queue
+        module.fillQueue(getCookie("user-id"));
     }
 
-    if (!searchQuery)
-        module.fillQueue(getCookie("user-id"));
 
     // Fill user playlists
     module.fillPlaylists(getCookie("user-id"));
@@ -67,7 +68,16 @@ const observer = new MutationObserver((mutations) => {
             // Child nodes have been added or removed from the queue element
             const queueButtons = document.querySelectorAll("#queue button");
             queueButtons.forEach((button) => {
-                button.addEventListener("click", switchSongByClick);
+                if (button.getAttribute("audio-id")) {
+                    button.addEventListener("click", switchSongByClick);
+                    [btnPrev, btnPlay, btnNext, btnRepeat, btnRandomize].forEach((btn) => {
+                        btn.removeAttribute("disabled");
+                    })
+                } else {
+                    [btnPrev, btnPlay, btnNext, btnRepeat, btnRandomize].forEach((btn) => {
+                        btn.setAttribute("disabled", "");
+                    })
+                }
             });
         }
     });
@@ -114,6 +124,11 @@ btnPopular.addEventListener('click', () => {
 const btnRecent = document.getElementById("nav-btn-recent");
 btnRecent.addEventListener('click', () => {
     module.getRecentSongs(getCookie("user-id"));
+});
+
+const btnPlaylists = document.getElementById("nav-btn-playlists");
+btnPlaylists.addEventListener('click', () => {
+    module.getPlaylists(getCookie("user-id"));
 });
 
 searchForm.addEventListener('submit', (event) => {
@@ -178,7 +193,11 @@ audio_player.addEventListener("canplaythrough", () => {
 });
 
 function switchSong(current, next = null) {
-    changed = current && next && current.classList === next.classList || !current;
+    if (current && next) {
+        changed = current.getAttribute("audio-id") !== next.getAttribute("audio-id")
+    } else if (!current) {
+        changed = true
+    }
 
     if (current) {
         current.classList.remove("song__info--selected");
@@ -249,6 +268,7 @@ function switchSongByClick(event) {
         if (getCookie("user-id")) {
             module.updateUserHistory(getCookie("user-id"), songId);
         }
+        console.log("Song has been changed.");
     }
 }
 
@@ -299,6 +319,7 @@ function switchSongByButton(button) {
     const songId = newSelectedSong.getAttribute("audio-id");
     // Update track PlayCount
     module.updateTrackCount(songId);
+    console.log("Song has been changed.");
     // Update user history
     if (getCookie("user-id")) {
         module.updateUserHistory(getCookie("user-id"), songId);
@@ -371,6 +392,7 @@ if (btnPlay) {
             if (!curSelected) {
                 btnNext.click();
             } else if (changed) {
+                console.log("Song has been changed.");
                 const songId = curSelected.getAttribute("audio-id");
                 // Update track PlayCount
                 module.updateTrackCount(songId);
@@ -401,14 +423,14 @@ if (btnLike) {
         }
 
         const likeIcon = document.getElementById("btn-like").children[0];
-        const currentSekectedSong = document.querySelector(".song__info--selected");
+        const currentSelectedSong = document.querySelector(".song__info--selected");
 
         if (likeIcon.getAttribute("src") === "img/buttons/button-like.svg") {
             likeIcon.setAttribute("src", "img/buttons/button-like--active.svg");
-            currentSekectedSong.setAttribute("favourite", "true");
+            currentSelectedSong.setAttribute("favourite", "true");
         } else {
             likeIcon.setAttribute("src", "img/buttons/button-like.svg");
-            currentSekectedSong.setAttribute("favourite", "false");
+            currentSelectedSong.setAttribute("favourite", "false");
         }
 
         // Add song to favourites playlist [API functionality]
@@ -443,8 +465,7 @@ btnAdd.addEventListener("click", () => {
     }
 
     playlistDropdown.classList.toggle("controls__playlists-dropdown--shown");
-
-    // Fill playlistDropdown with user playlists [API functionality]
+    document.getElementById('newPlaylistName').value = "";
 });
 
 document.addEventListener('click', function (event) {
