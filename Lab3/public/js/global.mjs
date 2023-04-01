@@ -8,7 +8,7 @@ navLinks.forEach(link => {
 
     if (linkButton || destination !== "home") {
         linkButton.addEventListener('click', () => {
-            window.location.href = `index.html?search=${destination}`;
+            window.location.href = `index.html?action=${destination}`;
         });
     }
 });
