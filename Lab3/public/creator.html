@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="initial-scale=1, width=device-width"/>
+    <link rel="stylesheet" href="css/global.css"/>
+    <link rel="stylesheet" href="css/creator.css"/>
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"/>
+    <link rel="icon" type="image/x-icon" href="img/title-icon.webp">
+    <title>Creator</title>
+</head>
+<body>
+<div class="page-creator-wrapper">
+    <div class="page-creator">
+        <header class="page-creator__header">
+            <nav class="page-creator__header__content navbar">
+                <span class="navbar__brand">
+                    <strong class="navbar__brand__content">
+                        <b class="brand__name">JukeBox</b>
+                    </strong>
+                </span>
+                <div class="navbar__collapse">
+                    <div class="navbar__collapse__content">
+                        <div class="collapse__nav">
+                            <ul class="collapse__nav__content">
+                                <li class="nav__link" id="page-home">
+                                    <a href="index.html" id="nav-link-home" class="link">Home</a>
+                                </li>
+                                <li class="nav__link" id="page-popular">
+                                    <button class="link" id="nav-btn-popular">Popular</button>
+                                </li>
+                                <li class="nav__link" id="page-recent">
+                                    <button class="link" id="nav-btn-recent">Recent</button>
+                                </li>
+                                <li class="nav__link" id="page-playlists">
+                                    <button class="link" id="nav-btn-playlists">Playlists</button>
+                                </li>
+                                <li class="nav__link" id="page-creator">
+                                    <a href="creator.html" class="link link--current">Creator</a>
+                                </li>
+                                <li class="nav__link" id="page-signOut">
+                                    <a href="index.html" class="link">Sign-Out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="navbar__search">
+                    <form class="navbar__search__content">
+                        <input class="search__input" placeholder="Search..." type="search" id="searchInput"/>
+                        <button class="search__button"></button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+        <main class="page-creator__main">
+            <section class="main__creator-data">
+                <header class="creator-data__header">
+                    <b>CREATOR</b>
+                </header>
+                <main class="creator-data__main">
+                    <form class="main__form" method="post" id="creatorForm">
+                        <input
+                                class="form__input-field"
+                                id="song__Artist"
+                                type="text"
+                                placeholder="Artist's name"
+                                required/>
+                        <input
+                                class="form__input-field"
+                                id="song__Title"
+                                type="text"
+                                placeholder="Song's name"
+                                required/>
+
+                        <input class="hidden" type="file" id="audio" accept="audio/*"/>
+                        <label class="paragraph form__input-file" for="audio">Click to upload the song</label>
+
+                        <button class="form__submit-btn" type="submit">
+                            <b class="submit-btn__text">Upload</b>
+                        </button>
+                    </form>
+                </main>
+            </section>
+            <img class="creator__logo logo" alt="" src="img/logos/creator-logo.svg" id="creator__img"/>
+        </main>
+        <footer class="page-creator__footer">
+            <aside class="footer__logo">
+                <img class="logo__image" alt="" src="img/logos/site-logo.png"/>
+            </aside>
+            <aside class="footer__logo" id="footer__logo-right">
+                <img class="logo__image" alt="" src="img/logos/site-logo--mirrored.png"/>
+            </aside>
+        </footer>
+    </div>
+</div>
+<script type="module" src="js/global.mjs"></script>
+<script type="module" src="js/creator.mjs"></script>
+</body>
+</html>

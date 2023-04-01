@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="initial-scale=1, width=device-width"/>
+    <link rel="stylesheet" href="css/global.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"/>
+    <link rel="icon" type="image/x-icon" href="img/title-icon.webp">
+    <title>JukeBox</title>
+</head>
+<body>
+<div class="page-home-wrapper">
+    <div class="page-home">
+        <header class="page-home__header">
+            <nav class="page-home__header__content navbar">
+                <span class="navbar__brand">
+                    <strong class="navbar__brand__content">
+                        <b class="brand__name">JukeBox</b>
+                    </strong>
+                </span>
+                <div class="navbar__collapse">
+                    <div class="navbar__collapse__content">
+                        <div class="collapse__nav">
+                            <ul class="collapse__nav__content">
+                                <li class="nav__link" id="page-home">
+                                    <a href="index.html" id="nav-link-home" class="link link--current">Home</a>
+                                </li>
+                                <li class="nav__link" id="page-popular">
+                                    <button class="link" id="nav-btn-popular">Popular</button>
+                                </li>
+                                <li class="nav__link hidden" id="page-recent">
+                                    <button class="link" id="nav-btn-recent">Recent</button>
+                                </li>
+                                <li class="nav__link hidden" id="page-playlists">
+                                    <button class="link" id="nav-btn-playlists">Playlists</button>
+                                </li>
+                                <li class="nav__link hidden" id="page-creator">
+                                    <a href="creator.html" class="link">Creator</a>
+                                </li>
+                                <li class="nav__link" id="page-signIn">
+                                    <a href="signin.html" class="link">Sign-In</a>
+                                </li>
+                                <li class="nav__link" id="page-signUp">
+                                    <a href="signup.html" class="link">Sign-Up</a>
+                                </li>
+                                <li class="nav__link hidden" id="page-signOut">
+                                    <a href="index.html" class="link">Sign-Out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="navbar__search">
+                    <form class="navbar__search__content">
+                        <input class="search__input" placeholder="Search..." type="search" id="searchInput"/>
+                        <button class="search__button"></button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+
+        <main class="page-home__music-player">
+            <section class="music-player__queue">
+                <header class="queue__name">Available Songs</header>
+                <main class="queue">
+                    <ul class="queue__content" id="queue"></ul>
+                </main>
+            </section>
+            <div class="music-player__controls">
+                <button class="controls__button-order" id="btn-prev">
+                    <img
+                            class="button-order__icon"
+                            alt=""
+                            src="img/buttons/button-prev.svg"/>
+                </button>
+            </div>
+            <section class="music-player__current-song">
+                <header class="current-song__info" id="artist-name">
+                    &#x1F3B5;
+                </header>
+                <main>
+                    <img
+                            class="current-song__image"
+                            alt=""
+                            src="img/discs/song-disk--01.png"/>
+                    <audio id="audio-player"></audio>
+                </main>
+                <footer class="current-song__info" id="song-name">
+                    &#x1F3B5;
+                </footer>
+            </section>
+            <div class="music-player__controls">
+                <button class="controls__button-order" id="btn-next">
+                    <img
+                            class="button-order__icon"
+                            alt=""
+                            src="img/buttons/button-next.svg"/>
+                </button>
+            </div>
+        </main>
+
+        <footer class="page-home__footer">
+            <aside class="footer__logo">
+                <img class="logo__image" alt="" src="img/logos/site-logo.png"/>
+            </aside>
+            <section class="footer__controls-profile">
+                <header class="controls-profile__controls controls">
+                    <button class="controls__play" id="btn-play">
+                        <img
+                                alt="Play/Pause"
+                                src="img/buttons/button-play.svg"/>
+                    </button>
+                    <button class="controls__randomize" id="btn-randomize">
+                        <img
+                                alt="Shuffle the queue"
+                                src="img/buttons/button-shuffle.svg"/>
+                    </button>
+                    <button class="controls__repeat" id="btn-repeat" disabled>
+                        <img
+                                alt="Repeat current song"
+                                src="img/buttons/button-repeat.svg"/>
+                    </button>
+                    <button class="controls__like" id="btn-like" disabled>
+                        <img
+                                alt="Add to favourites"
+                                src="img/buttons/button-like.svg"/>
+                    </button>
+                    <button class="controls__add" id="btn-add" disabled>
+                        <img id="btn-add__image"
+                             alt="Add to playlist"
+                             src="img/buttons/button-add.svg"/>
+                    </button>
+                    <div class="controls__playlists-dropdown" id="dropdown">
+                        <ul class="controls__playlists-dropdown__content" id="playlists-dropdown"></ul>
+                        <form class="controls__playlists-dropdown__add-playlist" id="add-playlist">
+                            <button class="add-playlist__button" type="submit"></button>
+                            <input
+                                    class="add-playlist__input"
+                                    placeholder="Name"
+                                    type="text"
+                                    id="newPlaylistName"
+                                    minlength="4"
+                                    maxlength="15"
+                                    required/>
+                        </form>
+                    </div>
+                </header>
+                <main class="controls-profile__profile profile">
+                    <img
+                            class="profile__avatar hidden"
+                            alt=""
+                            src="img/default-avatar.png"
+                            id="avatar"
+                    />
+                    <p class="profile__name hidden" id="username">ProfileName</p>
+                </main>
+            </section>
+            <aside class="footer__logo">
+                <img class="logo__image" alt="" src="img/logos/site-logo--mirrored.png"/>
+            </aside>
+        </footer>
+    </div>
+</div>
+<script type="module" src="js/music-player.mjs"></script>
+<script type="module" src="js/index.js"></script>
+</body>
+</html>
